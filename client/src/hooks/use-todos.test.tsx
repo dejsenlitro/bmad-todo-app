@@ -66,7 +66,12 @@ describe("useTodos", () => {
       const { result } = renderHook(() => useTodos());
       await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-      const saved = { id: "server-1", text: "New", completed: false, createdAt: "2026-01-01" };
+      const saved = {
+        id: "server-1",
+        text: "New",
+        completed: false,
+        createdAt: "2026-01-01",
+      };
       mockApiCreateTodo.mockResolvedValue(saved);
 
       await act(async () => {
@@ -89,13 +94,17 @@ describe("useTodos", () => {
       });
 
       expect(result.current.todos).toHaveLength(0);
-      expect(result.current.error).toBe("Failed to save todo. Please try again.");
+      expect(result.current.error).toBe(
+        "Failed to save todo. Please try again.",
+      );
     });
   });
 
   describe("toggleTodo", () => {
     it("optimistically toggles and updates from server", async () => {
-      const todos = [{ id: "1", text: "Test", completed: false, createdAt: "2026-01-01" }];
+      const todos = [
+        { id: "1", text: "Test", completed: false, createdAt: "2026-01-01" },
+      ];
       mockFetchTodos.mockResolvedValue(todos);
 
       const { result } = renderHook(() => useTodos());
@@ -112,7 +121,9 @@ describe("useTodos", () => {
     });
 
     it("reverts on API failure", async () => {
-      const todos = [{ id: "1", text: "Test", completed: false, createdAt: "2026-01-01" }];
+      const todos = [
+        { id: "1", text: "Test", completed: false, createdAt: "2026-01-01" },
+      ];
       mockFetchTodos.mockResolvedValue(todos);
 
       const { result } = renderHook(() => useTodos());
@@ -125,13 +136,17 @@ describe("useTodos", () => {
       });
 
       expect(result.current.todos[0].completed).toBe(false);
-      expect(result.current.error).toBe("Failed to update todo. Please try again.");
+      expect(result.current.error).toBe(
+        "Failed to update todo. Please try again.",
+      );
     });
   });
 
   describe("removeTodo", () => {
     it("optimistically removes todo", async () => {
-      const todos = [{ id: "1", text: "Test", completed: false, createdAt: "2026-01-01" }];
+      const todos = [
+        { id: "1", text: "Test", completed: false, createdAt: "2026-01-01" },
+      ];
       mockFetchTodos.mockResolvedValue(todos);
 
       const { result } = renderHook(() => useTodos());
@@ -147,7 +162,9 @@ describe("useTodos", () => {
     });
 
     it("reverts and shows error on API failure", async () => {
-      const todos = [{ id: "1", text: "Test", completed: false, createdAt: "2026-01-01" }];
+      const todos = [
+        { id: "1", text: "Test", completed: false, createdAt: "2026-01-01" },
+      ];
       mockFetchTodos.mockResolvedValue(todos);
 
       const { result } = renderHook(() => useTodos());
@@ -160,7 +177,9 @@ describe("useTodos", () => {
       });
 
       await waitFor(() => {
-        expect(result.current.error).toBe("Failed to delete todo. Please try again.");
+        expect(result.current.error).toBe(
+          "Failed to delete todo. Please try again.",
+        );
       });
       expect(result.current.todos).toHaveLength(1);
     });
@@ -194,7 +213,9 @@ describe("useTodos", () => {
       mockFetchTodos.mockRejectedValue(new Error("fail"));
 
       const { result } = renderHook(() => useTodos());
-      await waitFor(() => expect(result.current.error).toBe("Failed to load todos"));
+      await waitFor(() =>
+        expect(result.current.error).toBe("Failed to load todos"),
+      );
 
       act(() => {
         result.current.clearError();

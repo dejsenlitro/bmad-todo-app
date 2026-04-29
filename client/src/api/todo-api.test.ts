@@ -14,8 +14,13 @@ afterEach(() => {
 
 describe("fetchTodos", () => {
   it("returns todos on success", async () => {
-    const todos = [{ id: "1", text: "Test", completed: false, createdAt: "2026-01-01" }];
-    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve(todos) });
+    const todos = [
+      { id: "1", text: "Test", completed: false, createdAt: "2026-01-01" },
+    ];
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(todos),
+    });
 
     const result = await fetchTodos();
 
@@ -32,8 +37,16 @@ describe("fetchTodos", () => {
 
 describe("createTodo", () => {
   it("sends POST and returns created todo", async () => {
-    const todo = { id: "1", text: "New", completed: false, createdAt: "2026-01-01" };
-    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve(todo) });
+    const todo = {
+      id: "1",
+      text: "New",
+      completed: false,
+      createdAt: "2026-01-01",
+    };
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(todo),
+    });
 
     const result = await createTodo("New");
 
@@ -54,8 +67,16 @@ describe("createTodo", () => {
 
 describe("updateTodo", () => {
   it("sends PATCH and returns updated todo", async () => {
-    const todo = { id: "1", text: "Test", completed: true, createdAt: "2026-01-01" };
-    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve(todo) });
+    const todo = {
+      id: "1",
+      text: "Test",
+      completed: true,
+      createdAt: "2026-01-01",
+    };
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(todo),
+    });
 
     const result = await updateTodo("1", true);
 
@@ -70,7 +91,9 @@ describe("updateTodo", () => {
   it("throws on failure", async () => {
     mockFetch.mockResolvedValue({ ok: false, status: 404 });
 
-    await expect(updateTodo("1", true)).rejects.toThrow("Failed to update todo");
+    await expect(updateTodo("1", true)).rejects.toThrow(
+      "Failed to update todo",
+    );
   });
 });
 
@@ -80,7 +103,9 @@ describe("deleteTodo", () => {
 
     await deleteTodo("1");
 
-    expect(mockFetch).toHaveBeenCalledWith("/api/todos/1", { method: "DELETE" });
+    expect(mockFetch).toHaveBeenCalledWith("/api/todos/1", {
+      method: "DELETE",
+    });
   });
 
   it("throws on failure", async () => {

@@ -11,7 +11,9 @@ export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const dismissTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const dismissTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   function setErrorWithAutoDismiss(message: string) {
     clearTimeout(dismissTimer.current);
@@ -68,12 +70,17 @@ export function useTodos() {
     setError(null);
 
     try {
-      const saved = await apiUpdateTodo(id, previousCompleted === undefined ? true : !previousCompleted);
+      const saved = await apiUpdateTodo(
+        id,
+        previousCompleted === undefined ? true : !previousCompleted,
+      );
       setTodos((prev) => prev.map((t) => (t.id === id ? saved : t)));
     } catch {
       setTodos((prev) =>
         prev.map((t) =>
-          t.id === id ? { ...t, completed: previousCompleted ?? t.completed } : t,
+          t.id === id
+            ? { ...t, completed: previousCompleted ?? t.completed }
+            : t,
         ),
       );
       setErrorWithAutoDismiss("Failed to update todo. Please try again.");
@@ -135,5 +142,13 @@ export function useTodos() {
     setError(null);
   }, []);
 
-  return { todos, isLoading, error, addTodo, toggleTodo, removeTodo, clearError };
+  return {
+    todos,
+    isLoading,
+    error,
+    addTodo,
+    toggleTodo,
+    removeTodo,
+    clearError,
+  };
 }

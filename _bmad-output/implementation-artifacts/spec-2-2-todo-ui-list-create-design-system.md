@@ -132,6 +132,7 @@ So that I can start managing tasks immediately.
 ## Completion Notes
 
 ### Files Created
+
 - `client/src/types/todo.ts` — Todo interface
 - `client/src/api/todo-api.ts` — fetchTodos(), createTodo() API client
 - `client/src/hooks/use-todos.ts` — useTodos() hook with optimistic updates
@@ -141,10 +142,12 @@ So that I can start managing tasks immediately.
 - `client/src/components/empty-state.tsx` — Empty state message
 
 ### Files Modified
+
 - `client/src/index.css` — Added @theme block with 10 semantic color tokens + shake animation
 - `client/src/App.tsx` — Replaced placeholder with full todo UI layout
 
 ### Verification
+
 - TypeScript compiles cleanly (`tsc -b --noEmit`)
 - Docker stack (client/server/db) starts healthy
 - API endpoints respond correctly (GET/POST /api/todos)

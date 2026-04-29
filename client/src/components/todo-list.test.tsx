@@ -4,8 +4,18 @@ import TodoList from "./todo-list";
 import type { Todo } from "../types/todo";
 
 const todos: Todo[] = [
-  { id: "1", text: "First", completed: false, createdAt: "2026-01-01T00:00:00Z" },
-  { id: "2", text: "Second", completed: true, createdAt: "2026-01-02T00:00:00Z" },
+  {
+    id: "1",
+    text: "First",
+    completed: false,
+    createdAt: "2026-01-01T00:00:00Z",
+  },
+  {
+    id: "2",
+    text: "Second",
+    completed: true,
+    createdAt: "2026-01-02T00:00:00Z",
+  },
 ];
 
 describe("TodoList", () => {

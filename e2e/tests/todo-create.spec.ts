@@ -10,7 +10,9 @@ test.beforeEach(async ({ request }) => {
 });
 
 test.describe("Create Todo", () => {
-  test("user types a task, presses Enter, todo appears in list", async ({ page }) => {
+  test("user types a task, presses Enter, todo appears in list", async ({
+    page,
+  }) => {
     await page.goto("/");
     const input = page.getByLabel("Add a new todo");
     await input.fill("Buy groceries");
@@ -19,7 +21,9 @@ test.describe("Create Todo", () => {
     await expect(page.getByText("Buy groceries")).toBeVisible();
   });
 
-  test("user types a task, clicks Add button, todo appears", async ({ page }) => {
+  test("user types a task, clicks Add button, todo appears", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.getByLabel("Add a new todo").fill("Walk the dog");
     await page.getByRole("button", { name: "Add" }).click();

@@ -4,7 +4,8 @@ import TodoList from "./components/todo-list";
 import ErrorBanner from "./components/error-banner";
 
 function App() {
-  const { todos, isLoading, error, addTodo, toggleTodo, removeTodo } = useTodos();
+  const { todos, isLoading, error, addTodo, toggleTodo, removeTodo } =
+    useTodos();
 
   return (
     <main className="min-h-screen bg-bg-surface">
@@ -28,7 +29,11 @@ function App() {
               Loading...
             </p>
           ) : (
-            <TodoList todos={todos} onToggle={toggleTodo} onDelete={removeTodo} />
+            <TodoList
+              todos={todos}
+              onToggle={toggleTodo}
+              onDelete={removeTodo}
+            />
           )}
         </div>
       </div>

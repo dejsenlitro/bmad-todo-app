@@ -33,7 +33,12 @@ describe("listTodos", () => {
 
 describe("createTodo", () => {
   it("trims text and creates todo", async () => {
-    const saved = { id: "1", text: "Trimmed", completed: false, createdAt: "2026-01-01" };
+    const saved = {
+      id: "1",
+      text: "Trimmed",
+      completed: false,
+      createdAt: "2026-01-01",
+    };
     mockRepo.create.mockResolvedValue(saved);
 
     const result = await todoService.createTodo("  Trimmed  ");
@@ -70,7 +75,10 @@ describe("createTodo", () => {
   it("accepts text at exactly 255 chars", async () => {
     const text = "x".repeat(255);
     mockRepo.create.mockResolvedValue({
-      id: "1", text, completed: false, createdAt: "2026-01-01",
+      id: "1",
+      text,
+      completed: false,
+      createdAt: "2026-01-01",
     });
 
     await todoService.createTodo(text);
@@ -79,7 +87,10 @@ describe("createTodo", () => {
 
   it("accepts single character text", async () => {
     mockRepo.create.mockResolvedValue({
-      id: "1", text: "a", completed: false, createdAt: "2026-01-01",
+      id: "1",
+      text: "a",
+      completed: false,
+      createdAt: "2026-01-01",
     });
 
     await todoService.createTodo("a");
@@ -89,7 +100,12 @@ describe("createTodo", () => {
 
 describe("updateTodo", () => {
   it("updates and returns the todo", async () => {
-    const updated = { id: "1", text: "Test", completed: true, createdAt: "2026-01-01" };
+    const updated = {
+      id: "1",
+      text: "Test",
+      completed: true,
+      createdAt: "2026-01-01",
+    };
     mockRepo.update.mockResolvedValue(updated);
 
     const result = await todoService.updateTodo("1", true);
@@ -101,7 +117,9 @@ describe("updateTodo", () => {
   it("throws 404 when todo not found", async () => {
     mockRepo.update.mockResolvedValue(null);
 
-    await expect(todoService.updateTodo("missing-id", true)).rejects.toThrow("Todo not found");
+    await expect(todoService.updateTodo("missing-id", true)).rejects.toThrow(
+      "Todo not found",
+    );
     try {
       await todoService.updateTodo("missing-id", true);
     } catch (err: any) {
@@ -121,7 +139,9 @@ describe("deleteTodo", () => {
   it("throws 404 when todo not found", async () => {
     mockRepo.remove.mockResolvedValue(false);
 
-    await expect(todoService.deleteTodo("missing-id")).rejects.toThrow("Todo not found");
+    await expect(todoService.deleteTodo("missing-id")).rejects.toThrow(
+      "Todo not found",
+    );
     try {
       await todoService.deleteTodo("missing-id");
     } catch (err: any) {

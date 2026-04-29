@@ -77,7 +77,10 @@ describe("TodoItem", () => {
         <TodoItem todo={baseTodo} onToggle={vi.fn()} onDelete={vi.fn()} />
       </ul>,
     );
-    expect(screen.getByRole("checkbox")).toHaveAttribute("aria-checked", "false");
+    expect(screen.getByRole("checkbox")).toHaveAttribute(
+      "aria-checked",
+      "false",
+    );
   });
 
   it("shows aria-checked=true for completed todo", () => {
@@ -87,7 +90,10 @@ describe("TodoItem", () => {
         <TodoItem todo={completed} onToggle={vi.fn()} onDelete={vi.fn()} />
       </ul>,
     );
-    expect(screen.getByRole("checkbox")).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("checkbox")).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
   });
 
   it("applies strikethrough style for completed todo", () => {

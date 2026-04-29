@@ -64,11 +64,16 @@ describe("TodoInput", () => {
 
   it("has correct placeholder text", () => {
     render(<TodoInput onAdd={vi.fn()} />);
-    expect(screen.getByPlaceholderText("Add a new todo...")).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("Add a new todo..."),
+    ).toBeInTheDocument();
   });
 
   it("has autocomplete off", () => {
     render(<TodoInput onAdd={vi.fn()} />);
-    expect(screen.getByLabelText("Add a new todo")).toHaveAttribute("autocomplete", "off");
+    expect(screen.getByLabelText("Add a new todo")).toHaveAttribute(
+      "autocomplete",
+      "off",
+    );
   });
 });

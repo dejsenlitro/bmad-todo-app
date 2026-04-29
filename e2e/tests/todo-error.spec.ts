@@ -15,7 +15,10 @@ test.describe("Error Handling", () => {
     // Intercept the POST to simulate server error
     await page.route("**/api/todos", (route) => {
       if (route.request().method() === "POST") {
-        route.fulfill({ status: 500, body: JSON.stringify({ error: "Server error", statusCode: 500 }) });
+        route.fulfill({
+          status: 500,
+          body: JSON.stringify({ error: "Server error", statusCode: 500 }),
+        });
       } else {
         route.continue();
       }
@@ -34,7 +37,10 @@ test.describe("Error Handling", () => {
 
     await page.route("**/api/todos", (route) => {
       if (route.request().method() === "POST") {
-        route.fulfill({ status: 500, body: JSON.stringify({ error: "Server error", statusCode: 500 }) });
+        route.fulfill({
+          status: 500,
+          body: JSON.stringify({ error: "Server error", statusCode: 500 }),
+        });
       } else {
         route.continue();
       }

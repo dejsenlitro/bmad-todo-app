@@ -96,6 +96,7 @@ So that I can manage my task list confidently.
 ## Dev Agent Record
 
 ### Implementation Plan
+
 - Extend API client with PATCH/DELETE
 - Extend useTodos hook with toggleTodo, deleteTodo, error auto-dismiss
 - Update TodoItem with checkbox + delete button + transitions
@@ -103,6 +104,7 @@ So that I can manage my task list confidently.
 - Wire everything through TodoList and App.tsx
 
 ### Completion Notes
+
 - All 8 ACs implemented and verified
 - PATCH toggle works correctly (true → false → true)
 - DELETE returns 204 and removes todo from list
@@ -114,6 +116,7 @@ So that I can manage my task list confidently.
 - Docker stack verified end-to-end via curl
 
 ## File List
+
 - `client/src/api/todo-api.ts` — added updateTodo, deleteTodo
 - `client/src/hooks/use-todos.ts` — added toggleTodo, removeTodo, error auto-dismiss
 - `client/src/components/todo-item.tsx` — checkbox, delete button, completed styles
@@ -122,4 +125,5 @@ So that I can manage my task list confidently.
 - `client/src/App.tsx` — wired toggle/delete/error banner
 
 ## Change Log
+
 - 2026-04-29: Story 2.3 implemented — all tasks complete, status → review

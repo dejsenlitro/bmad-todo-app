@@ -17,11 +17,26 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
         onClick={() => onToggle(todo.id)}
         data-todo-checkbox={todo.id}
         className="flex-shrink-0 min-w-[44px] min-h-[44px] w-[22px] h-[22px] border-2 border-border rounded cursor-pointer flex items-center justify-center motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
-        style={todo.completed ? { backgroundColor: '#2563eb', borderColor: '#2563eb' } : undefined}
+        style={
+          todo.completed
+            ? { backgroundColor: "#2563eb", borderColor: "#2563eb" }
+            : undefined
+        }
       >
         {todo.completed && (
-          <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            className="w-3 h-3 text-white"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 6l3 3 5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </button>
@@ -40,8 +55,18 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
         onClick={() => onDelete(todo.id)}
         className="flex-shrink-0 min-w-[44px] min-h-[44px] w-8 h-8 flex items-center justify-center rounded text-gray-300 hover:text-red-600 hover:bg-red-50 motion-safe:transition-colors motion-safe:duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       >
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 4l8 8M12 4l-8 8"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
         </svg>
       </button>
     </li>
