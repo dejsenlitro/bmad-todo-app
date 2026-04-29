@@ -1,16 +1,32 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { Todo } from "../types/todo";
-import { fetchTodos, createTodo as apiCreateTodo } from "../api/todo-api";
+import {
+  fetchTodos,
+  createTodo as apiCreateTodo,
+  updateTodo as apiUpdateTodo,
+  deleteTodo as apiDeleteTodo,
+} from "../api/todo-api";
 
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const dismissTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  function setErrorWithAutoDismiss(message: string) {
+    clearTimeout(dismissTimer.current);
+    setError(message);
+    dismissTimer.current = setTimeout(() => setError(null), 5000);
+  }
+
+  useEffect(() => {
+    return () => clearTimeout(dismissTimer.current);
+  }, []);
 
   useEffect(() => {
     fetchTodos()
       .then(setTodos)
-      .catch(() => setError("Failed to load todos"))
+      .catch(() => setErrorWithAutoDismiss("Failed to load todos"))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -24,6 +40,7 @@ export function useTodos() {
     };
 
     setTodos((prev) => [...prev, tempTodo]);
+    clearTimeout(dismissTimer.current);
     setError(null);
 
     try {
@@ -31,11 +48,73 @@ export function useTodos() {
       setTodos((prev) => prev.map((t) => (t.id === tempId ? saved : t)));
     } catch {
       setTodos((prev) => prev.filter((t) => t.id !== tempId));
-      setError("Failed to save todo. Please try again.");
+      setErrorWithAutoDismiss("Failed to save todo. Please try again.");
     }
   }, []);
 
-  const clearError = useCallback(() => setError(null), []);
+  const toggleTodo = useCallback(async (id: string) => {
+    let previousCompleted: boolean | undefined;
 
-  return { todos, isLoading, error, addTodo, clearError };
+    setTodos((prev) =>
+      prev.map((t) => {
+        if (t.id === id) {
+          previousCompleted = t.completed;
+          return { ...t, completed: !t.completed };
+        }
+        return t;
+      }),
+    );
+    clearTimeout(dismissTimer.current);
+    setError(null);
+
+    try {
+      const saved = await apiUpdateTodo(id, previousCompleted === undefined ? true : !previousCompleted);
+      setTodos((prev) => prev.map((t) => (t.id === id ? saved : t)));
+    } catch {
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === id ? { ...t, completed: previousCompleted ?? t.completed } : t,
+        ),
+      );
+      setErrorWithAutoDismiss("Failed to update todo. Please try again.");
+    }
+  }, []);
+
+  const removeTodo = useCallback(async (id: string) => {
+    let removed: Todo | undefined;
+
+    setTodos((prev) => {
+      removed = prev.find((t) => t.id === id);
+      return prev.filter((t) => t.id !== id);
+    });
+    clearTimeout(dismissTimer.current);
+    setError(null);
+
+    try {
+      await apiDeleteTodo(id);
+    } catch {
+      if (removed) {
+        setTodos((prev) => {
+          const index = prev.findIndex(
+            (t) => t.createdAt > (removed as Todo).createdAt,
+          );
+          const newTodos = [...prev];
+          if (index === -1) {
+            newTodos.push(removed as Todo);
+          } else {
+            newTodos.splice(index, 0, removed as Todo);
+          }
+          return newTodos;
+        });
+      }
+      setErrorWithAutoDismiss("Failed to delete todo. Please try again.");
+    }
+  }, []);
+
+  const clearError = useCallback(() => {
+    clearTimeout(dismissTimer.current);
+    setError(null);
+  }, []);
+
+  return { todos, isLoading, error, addTodo, toggleTodo, removeTodo, clearError };
 }
