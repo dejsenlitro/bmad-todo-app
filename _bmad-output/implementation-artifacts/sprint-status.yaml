@@ -39,8 +39,8 @@ development_status:
 
   # Epic 2: Core Todo Management
   epic-2: in-progress
-  2-1-todo-api-crud-endpoints: review
-  2-2-todo-ui-list-create-design-system: backlog
+  2-1-todo-api-crud-endpoints: done
+  2-2-todo-ui-list-create-design-system: done
   2-3-todo-ui-complete-delete-error-handling: backlog
   2-4-accessibility-motion: backlog
   epic-2-retrospective: optional

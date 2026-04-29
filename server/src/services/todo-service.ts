@@ -17,7 +17,7 @@ export async function createTodo(text: string): Promise<Todo> {
 
 export async function updateTodo(
   id: string,
-  completed: boolean
+  completed: boolean,
 ): Promise<Todo> {
   const todo = await todoRepository.update(id, { completed });
   if (!todo) {

@@ -53,6 +53,7 @@ So that my task data is reliably stored and available across sessions.
 ## Dev Notes
 
 ### Architecture
+
 - 3-layer: routes → services → repositories (NFR-9)
 - Repository handles snake_case (DB) → camelCase (API) mapping
 - Routes use Fastify JSON Schema validation for request bodies and params
@@ -61,19 +62,22 @@ So that my task data is reliably stored and available across sessions.
 - UUID params should be validated as UUID format
 
 ### Existing Code
+
 - `server/src/config/database.ts` — exports pg.Pool
 - `server/src/types/todo.ts` — Todo, CreateTodoRequest, UpdateTodoRequest interfaces
 - `server/src/app.ts` — Fastify app factory with CORS, CSP, sensible plugin
 - `db/init.sql` — todos table schema (id UUID, text VARCHAR(255), completed BOOLEAN, created_at TIMESTAMPTZ)
 
 ### Conventions
+
 - ESM modules with .js extensions in imports
 - kebab-case file names
-- Co-located test files (*.test.ts next to source)
+- Co-located test files (\*.test.ts next to source)
 
 ## Dev Agent Record
 
 ### Implementation Plan
+
 - Create repository layer with parameterized queries and field mapping
 - Create service layer with validation and error handling
 - Create routes layer with JSON Schema and HTTP status codes
@@ -81,9 +85,11 @@ So that my task data is reliably stored and available across sessions.
 - Test via docker compose
 
 ### Debug Log
+
 (none)
 
 ### Completion Notes
+
 - 3-layer architecture implemented: routes → services → repositories
 - All 5 CRUD endpoints verified via Docker: GET list, POST create (201), PATCH update (200), DELETE (204)
 - Error handling verified: 400 validation (empty text), 404 not found, 500 internal (no stack traces)
@@ -92,12 +98,14 @@ So that my task data is reliably stored and available across sessions.
 - Parameterized SQL queries throughout (security)
 
 ## File List
+
 - server/src/repositories/todo-repository.ts (new)
 - server/src/services/todo-service.ts (new)
 - server/src/routes/todo-routes.ts (new)
 - server/src/app.ts (modified — registered todoRoutes)
-- _bmad-output/implementation-artifacts/spec-2-1-todo-api-crud-endpoints.md (new)
-- _bmad-output/implementation-artifacts/sprint-status.yaml (modified)
+- \_bmad-output/implementation-artifacts/spec-2-1-todo-api-crud-endpoints.md (new)
+- \_bmad-output/implementation-artifacts/sprint-status.yaml (modified)
 
 ## Change Log
+
 - 2026-04-29: Story 2.1 implemented — CRUD API endpoints with 3-layer architecture

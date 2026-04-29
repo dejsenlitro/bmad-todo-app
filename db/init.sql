@@ -1,8 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-
 CREATE TABLE IF NOT EXISTS todos (
-  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  text       VARCHAR(255) NOT NULL,
-  completed  BOOLEAN NOT NULL DEFAULT FALSE,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  text VARCHAR(255) NOT NULL,
+  completed BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

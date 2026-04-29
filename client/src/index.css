@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #ffffff;
+  --color-bg-surface: #f9fafb;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-placeholder: #9ca3af;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-border: #e5e7eb;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(2px); }
+}

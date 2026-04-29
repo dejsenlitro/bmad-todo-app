@@ -80,18 +80,14 @@ export async function todoRoutes(app: FastifyInstance) {
       const { text } = request.body as { text: string };
       const todo = await todoService.createTodo(text);
       return reply.status(201).send(todo);
-    }
+    },
   );
 
-  app.patch(
-    "/api/todos/:id",
-    { schema: updateTodoSchema },
-    async (request) => {
-      const { id } = request.params as { id: string };
-      const { completed } = request.body as { completed: boolean };
-      return todoService.updateTodo(id, completed);
-    }
-  );
+  app.patch("/api/todos/:id", { schema: updateTodoSchema }, async (request) => {
+    const { id } = request.params as { id: string };
+    const { completed } = request.body as { completed: boolean };
+    return todoService.updateTodo(id, completed);
+  });
 
   app.delete(
     "/api/todos/:id",
@@ -100,7 +96,7 @@ export async function todoRoutes(app: FastifyInstance) {
       const { id } = request.params as { id: string };
       await todoService.deleteTodo(id);
       return reply.status(204).send();
-    }
+    },
   );
 
   // Error handler for this plugin scope
