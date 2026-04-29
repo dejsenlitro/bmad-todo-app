@@ -2,6 +2,7 @@ import Fastify, { FastifyInstance } from "fastify";
 import cors from "@fastify/cors";
 import sensible from "@fastify/sensible";
 import { healthRoutes } from "./routes/health-routes.js";
+import { todoRoutes } from "./routes/todo-routes.js";
 import pool from "./config/database.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
@@ -25,6 +26,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   await app.register(healthRoutes);
+  await app.register(todoRoutes);
 
   app.addHook("onClose", async () => {
     await pool.end();

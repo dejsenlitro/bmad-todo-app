@@ -32,14 +32,14 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   # Epic 1: Project Foundation & Infrastructure
-  epic-1: in-progress
+  epic-1: done
   1-1-project-scaffold-dev-environment: done
   1-2-database-docker-compose: done
   epic-1-retrospective: optional
 
   # Epic 2: Core Todo Management
-  epic-2: backlog
-  2-1-todo-api-crud-endpoints: backlog
+  epic-2: in-progress
+  2-1-todo-api-crud-endpoints: review
   2-2-todo-ui-list-create-design-system: backlog
   2-3-todo-ui-complete-delete-error-handling: backlog
   2-4-accessibility-motion: backlog
