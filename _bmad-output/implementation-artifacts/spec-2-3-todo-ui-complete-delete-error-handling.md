@@ -1,6 +1,6 @@
 # Story 2.3: Todo UI — Complete, Delete, & Error Handling
 
-## Status: review
+## Status: done
 
 ## Story
 

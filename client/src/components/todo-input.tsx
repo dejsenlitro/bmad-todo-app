@@ -37,15 +37,16 @@ export default function TodoInput({ onAdd }: TodoInputProps) {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        id="todo-input"
         placeholder="Add a new todo..."
         aria-label="Add a new todo"
         autoComplete="off"
         spellCheck="true"
-        className="flex-1 border-2 border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+        className="flex-1 border-2 border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       />
       <button
         type="submit"
-        className="bg-accent hover:bg-accent-hover text-white rounded-lg px-5 py-3 font-semibold transition-colors duration-150 cursor-pointer"
+        className="bg-accent hover:bg-accent-hover text-white rounded-lg px-5 py-3 font-semibold motion-safe:transition-colors motion-safe:duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       >
         Add
       </button>

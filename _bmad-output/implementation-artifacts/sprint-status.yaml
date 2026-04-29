@@ -38,11 +38,11 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Core Todo Management
-  epic-2: in-progress
+  epic-2: done
   2-1-todo-api-crud-endpoints: done
   2-2-todo-ui-list-create-design-system: done
-  2-3-todo-ui-complete-delete-error-handling: review
-  2-4-accessibility-motion: backlog
+  2-3-todo-ui-complete-delete-error-handling: done
+  2-4-accessibility-motion: done
   epic-2-retrospective: optional
 
   # Epic 3: Quality Assurance & E2E Testing

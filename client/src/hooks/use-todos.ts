@@ -82,13 +82,32 @@ export function useTodos() {
 
   const removeTodo = useCallback(async (id: string) => {
     let removed: Todo | undefined;
+    let nextFocusId: string | null = null;
 
     setTodos((prev) => {
-      removed = prev.find((t) => t.id === id);
-      return prev.filter((t) => t.id !== id);
+      const idx = prev.findIndex((t) => t.id === id);
+      removed = prev[idx];
+      const remaining = prev.filter((t) => t.id !== id);
+      if (remaining.length > 0) {
+        const nextIdx = idx < remaining.length ? idx : remaining.length - 1;
+        nextFocusId = remaining[nextIdx].id;
+      }
+      return remaining;
     });
     clearTimeout(dismissTimer.current);
     setError(null);
+
+    // Move focus after React re-render
+    setTimeout(() => {
+      if (nextFocusId) {
+        const nextCheckbox = document.querySelector<HTMLElement>(
+          `[data-todo-checkbox="${nextFocusId}"]`,
+        );
+        nextCheckbox?.focus();
+      } else {
+        document.getElementById("todo-input")?.focus();
+      }
+    }, 0);
 
     try {
       await apiDeleteTodo(id);
