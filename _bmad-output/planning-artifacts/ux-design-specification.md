@@ -81,15 +81,15 @@ The core loop is **add → view → complete → delete**. Adding a todo is the 
 
 ### Emotional Journey Mapping
 
-| Stage | Desired Emotion | Design Lever |
-|-------|----------------|-------------|
-| First open | Clarity — "I know exactly what to do" | Auto-focused input, clean empty state |
-| Adding first task | Momentum — "That was easy" | Instant appearance, smooth animation |
-| Viewing task list | Control — "I see everything" | Clear hierarchy, active vs. completed |
-| Completing a task | Satisfaction — "Done." | Strikethrough + visual reward transition |
-| Deleting a task | Confidence — "I meant to do that" | Clean removal, no guilt or friction |
-| Error occurs | Trust — "It'll be fine" | Clear message, obvious retry path |
-| Returning next day | Reliability — "Everything is still here" | Instant load, state preserved |
+| Stage              | Desired Emotion                          | Design Lever                             |
+| ------------------ | ---------------------------------------- | ---------------------------------------- |
+| First open         | Clarity — "I know exactly what to do"    | Auto-focused input, clean empty state    |
+| Adding first task  | Momentum — "That was easy"               | Instant appearance, smooth animation     |
+| Viewing task list  | Control — "I see everything"             | Clear hierarchy, active vs. completed    |
+| Completing a task  | Satisfaction — "Done."                   | Strikethrough + visual reward transition |
+| Deleting a task    | Confidence — "I meant to do that"        | Clean removal, no guilt or friction      |
+| Error occurs       | Trust — "It'll be fine"                  | Clear message, obvious retry path        |
+| Returning next day | Reliability — "Everything is still here" | Instant load, state preserved            |
 
 ### Micro-Emotions
 
@@ -116,18 +116,21 @@ The core loop is **add → view → complete → delete**. Adding a todo is the 
 ### Inspiring Products Analysis
 
 **Apple Reminders (iOS/macOS)**
+
 - Minimal, list-centric interface with immediate add via input at bottom
 - One-tap completion with satisfying checkmark animation
 - Clean visual hierarchy — content is king, chrome is minimal
 - Weakness: Feature bloat in recent versions dilutes the simple core
 
 **Todoist**
+
 - Quick-add pattern: always-visible input, natural language parsing
 - Visual distinction between complete/active is clear and immediate
 - Excellent keyboard shortcuts for power users
 - Weakness: Complexity creep — too many features visible at once for casual users
 
 **Google Keep (Notes, not tasks — but the interaction)**
+
 - Near-zero friction to create: just start typing
 - Card-based layout communicates individual items clearly
 - Color-coding adds personality without complexity
@@ -136,14 +139,17 @@ The core loop is **add → view → complete → delete**. Adding a todo is the 
 ### Transferable UX Patterns
 
 **Navigation Patterns:**
+
 - **Single-page, no navigation** (Apple Reminders simple mode) — everything visible at once. Perfect for our one-screen constraint.
 
 **Interaction Patterns:**
+
 - **Inline add** (Todoist) — input field always visible and ready, no modal or separate view.
 - **Checkbox toggle** (universal) — the most universally understood "complete" pattern. Familiar to 100% of users.
 - **Swipe/hover to reveal delete** (Apple Reminders) — secondary action hidden until needed, reducing visual noise.
 
 **Visual Patterns:**
+
 - **Strikethrough + muted opacity** (Todoist) — completed items remain visible but recede. Communicates "done" without removal.
 - **Generous vertical spacing** (Apple Reminders) — each item breathes. Touch targets are naturally large.
 
@@ -158,14 +164,17 @@ The core loop is **add → view → complete → delete**. Adding a todo is the 
 ### Design Inspiration Strategy
 
 **Adopt:**
+
 - Checkbox toggle for completion (universal pattern)
 - Inline always-visible input field (Todoist pattern)
 - Strikethrough + opacity for completed items (Todoist pattern)
 
 **Adapt:**
+
 - Apple Reminders' reveal-on-hover for delete → show delete icon inline but visually subdued (works for both mouse and touch)
 
 **Avoid:**
+
 - Any navigation, sidebar, or multi-view pattern
 - Modals, confirmation dialogs, or multi-step flows
 - FABs, tooltips, or onboarding overlays
@@ -196,6 +205,7 @@ No component library. Components are hand-built with semantic HTML, styled via T
 ### Customization Strategy
 
 **Design Tokens:**
+
 - **Colors:** Neutral palette (grays) with one accent color for active state. Muted tones for completed items.
 - **Typography:** System font stack (`font-sans`) — no custom fonts to load.
 - **Spacing:** 4px base unit, generous vertical rhythm (12–16px between items).
@@ -242,22 +252,26 @@ Innovation is in the **execution quality**, not the pattern selection. The app s
 ### 2.5 Experience Mechanics
 
 **1. Initiation:**
+
 - App loads → input field auto-focused → cursor blinking → user starts typing immediately
 - No splash screen, no loading delay perceptible to user (optimistic empty state)
 
 **2. Interaction:**
+
 - User types task text (1–300 characters)
 - Presses Enter (desktop) or taps Add button (mobile)
 - Input clears and refocuses instantly
 - New todo appears at top/bottom of list with subtle entrance animation (fade-in, ~150ms)
 
 **3. Feedback:**
+
 - **Add:** Todo appears in list instantly (optimistic update)
 - **Complete:** Checkbox fills + text gets strikethrough + opacity dims (~200ms transition)
 - **Delete:** Item slides out or fades out (~150ms transition)
 - **Error:** Inline message appears below the affected area. Item reverts to pre-action state.
 
 **4. Completion:**
+
 - No explicit "done" state — the list IS the result
 - User sees their todos, feels organized, closes the tab
 - Next visit: everything is exactly as they left it
@@ -268,18 +282,18 @@ Innovation is in the **execution quality**, not the pattern selection. The app s
 
 **Palette: Neutral-first with blue accent**
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `bg-primary` | `#FFFFFF` | Page background |
-| `bg-surface` | `#F9FAFB` (gray-50) | Input field, card backgrounds |
-| `text-primary` | `#111827` (gray-900) | Todo text, headings |
-| `text-secondary` | `#6B7280` (gray-500) | Completed todo text, timestamps |
-| `text-placeholder` | `#9CA3AF` (gray-400) | Input placeholder |
-| `accent` | `#2563EB` (blue-600) | Active checkbox, focus ring |
-| `accent-hover` | `#1D4ED8` (blue-700) | Hover states |
-| `border` | `#E5E7EB` (gray-200) | Input borders, dividers |
-| `error` | `#DC2626` (red-600) | Error messages |
-| `error-bg` | `#FEF2F2` (red-50) | Error message background |
+| Token              | Value                | Usage                           |
+| ------------------ | -------------------- | ------------------------------- |
+| `bg-primary`       | `#FFFFFF`            | Page background                 |
+| `bg-surface`       | `#F9FAFB` (gray-50)  | Input field, card backgrounds   |
+| `text-primary`     | `#111827` (gray-900) | Todo text, headings             |
+| `text-secondary`   | `#6B7280` (gray-500) | Completed todo text, timestamps |
+| `text-placeholder` | `#9CA3AF` (gray-400) | Input placeholder               |
+| `accent`           | `#2563EB` (blue-600) | Active checkbox, focus ring     |
+| `accent-hover`     | `#1D4ED8` (blue-700) | Hover states                    |
+| `border`           | `#E5E7EB` (gray-200) | Input borders, dividers         |
+| `error`            | `#DC2626` (red-600)  | Error messages                  |
+| `error-bg`         | `#FEF2F2` (red-50)   | Error message background        |
 
 **Contrast compliance:** All text/background combinations exceed WCAG AA 4.5:1 ratio.
 
@@ -287,14 +301,14 @@ Innovation is in the **execution quality**, not the pattern selection. The app s
 
 **Font:** System font stack — `ui-sans-serif, system-ui, -apple-system, sans-serif`
 
-| Element | Size | Weight | Line Height |
-|---------|------|--------|-------------|
-| App title | 1.5rem (24px) | 700 | 1.33 |
-| Todo item text | 1rem (16px) | 400 | 1.5 |
-| Completed todo | 1rem (16px) | 400 | 1.5 |
-| Input text | 1rem (16px) | 400 | 1.5 |
-| Placeholder | 1rem (16px) | 400 | 1.5 |
-| Empty/error state | 0.875rem (14px) | 400 | 1.43 |
+| Element           | Size            | Weight | Line Height |
+| ----------------- | --------------- | ------ | ----------- |
+| App title         | 1.5rem (24px)   | 700    | 1.33        |
+| Todo item text    | 1rem (16px)     | 400    | 1.5         |
+| Completed todo    | 1rem (16px)     | 400    | 1.5         |
+| Input text        | 1rem (16px)     | 400    | 1.5         |
+| Placeholder       | 1rem (16px)     | 400    | 1.5         |
+| Empty/error state | 0.875rem (14px) | 400    | 1.43        |
 
 No custom web fonts — zero font loading latency.
 
@@ -303,14 +317,14 @@ No custom web fonts — zero font loading latency.
 **Base unit:** 4px
 **Scale:** 4, 8, 12, 16, 24, 32, 48px
 
-| Context | Spacing |
-|---------|---------|
-| Item padding (vertical) | 12px |
-| Item padding (horizontal) | 16px |
-| Between items | 0 (separated by 1px border) |
-| Input height | 48px (mobile-friendly touch target) |
-| Max content width | 640px (centered) |
-| Page padding | 16px (mobile), 24px (desktop) |
+| Context                   | Spacing                             |
+| ------------------------- | ----------------------------------- |
+| Item padding (vertical)   | 12px                                |
+| Item padding (horizontal) | 16px                                |
+| Between items             | 0 (separated by 1px border)         |
+| Input height              | 48px (mobile-friendly touch target) |
+| Max content width         | 640px (centered)                    |
+| Page padding              | 16px (mobile), 24px (desktop)       |
 
 **Layout:** Single centered column, max-width 640px. No grid system needed — the app is a vertical list.
 
@@ -329,11 +343,11 @@ No custom web fonts — zero font loading latency.
 
 Three distinct visual directions were evaluated against the app's core experience principle ("Type → Enter → Done"), accessibility requirements (WCAG 2.1 AA), and the established design foundation:
 
-| Direction | Concept | Strengths | Weaknesses |
-|-----------|---------|-----------|------------|
-| **A: Ultra Minimal** | Borderless white card, underline input, hover-reveal delete | Maximum calm, minimal chrome | Delete hidden on touch devices, low affordance for first-time users |
-| **B: Bordered Cards** | Individual bordered cards, visible Add button, square checkboxes | Clear touch targets, explicit affordances, universal patterns | Slightly more visual weight |
-| **C: Warm & Friendly** | Amber/cream palette, rounded forms, personality-driven copy | Distinctive, inviting feel | Warm palette diverges from neutral foundation, personality may feel forced for a utility app |
+| Direction              | Concept                                                          | Strengths                                                     | Weaknesses                                                                                   |
+| ---------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **A: Ultra Minimal**   | Borderless white card, underline input, hover-reveal delete      | Maximum calm, minimal chrome                                  | Delete hidden on touch devices, low affordance for first-time users                          |
+| **B: Bordered Cards**  | Individual bordered cards, visible Add button, square checkboxes | Clear touch targets, explicit affordances, universal patterns | Slightly more visual weight                                                                  |
+| **C: Warm & Friendly** | Amber/cream palette, rounded forms, personality-driven copy      | Distinctive, inviting feel                                    | Warm palette diverges from neutral foundation, personality may feel forced for a utility app |
 
 All directions were visualized with populated, empty, and error states in an interactive HTML showcase (`ux-design-directions.html`).
 
@@ -342,6 +356,7 @@ All directions were visualized with populated, empty, and error states in an int
 **Direction B: Bordered Cards** — selected as the primary design direction.
 
 Key characteristics:
+
 - **Individual bordered cards** per todo item with rounded corners (8px)
 - **Visible Add button** alongside the input field — works for both Enter (keyboard) and tap (touch)
 - **Square checkboxes** (border-radius: 4px) — the most universally recognized "task complete" affordance
@@ -379,6 +394,7 @@ Todo list:        flex flex-col gap-2
 ```
 
 **Key interaction details:**
+
 - Input auto-focuses on page load
 - Enter submits; Add button submits — identical behavior
 - Checkbox toggle: 200ms fill transition
@@ -496,13 +512,13 @@ Not a separate flow but a responsive variant of UJ-1 through UJ-4. Key adaptatio
 
 ### Journey Patterns
 
-| Pattern | Used In | Behavior |
-|---------|---------|----------|
-| **Optimistic update** | UJ-2, UJ-3, UJ-4 | Apply change visually before server confirms; revert on error |
-| **Auto-focus management** | UJ-1, UJ-2, UJ-4 | Input focused on load, after add, and after delete (if list empties) |
-| **Error recovery** | All | Inline banner below input; auto-dismiss after 5s or on next action |
-| **aria-live announcements** | UJ-2, UJ-3, UJ-4 | Polite announcements for list mutations |
-| **Keyboard parity** | All | Every action achievable via keyboard with logical tab order |
+| Pattern                     | Used In          | Behavior                                                             |
+| --------------------------- | ---------------- | -------------------------------------------------------------------- |
+| **Optimistic update**       | UJ-2, UJ-3, UJ-4 | Apply change visually before server confirms; revert on error        |
+| **Auto-focus management**   | UJ-1, UJ-2, UJ-4 | Input focused on load, after add, and after delete (if list empties) |
+| **Error recovery**          | All              | Inline banner below input; auto-dismiss after 5s or on next action   |
+| **aria-live announcements** | UJ-2, UJ-3, UJ-4 | Polite announcements for list mutations                              |
+| **Keyboard parity**         | All              | Every action achievable via keyboard with logical tab order          |
 
 ### Flow Optimization Principles
 
@@ -527,13 +543,13 @@ Not a separate flow but a responsive variant of UJ-1 through UJ-4. Key adaptatio
 **Purpose:** Captures new todo text and submits it.
 **Anatomy:** Text input + Add button, side-by-side in a flex row.
 
-| State | Input | Button |
-|-------|-------|--------|
-| **Default** | `border-gray-200`, placeholder visible | `bg-blue-600 text-white` |
-| **Focused** | `border-blue-600 ring-3 ring-blue-600/10` | unchanged |
-| **Typing** | User text replaces placeholder | unchanged |
-| **Invalid submit** | Brief shake animation, text preserved | unchanged |
-| **Disabled (during error)** | `opacity-50 pointer-events-none` | `opacity-50 pointer-events-none` |
+| State                       | Input                                     | Button                           |
+| --------------------------- | ----------------------------------------- | -------------------------------- |
+| **Default**                 | `border-gray-200`, placeholder visible    | `bg-blue-600 text-white`         |
+| **Focused**                 | `border-blue-600 ring-3 ring-blue-600/10` | unchanged                        |
+| **Typing**                  | User text replaces placeholder            | unchanged                        |
+| **Invalid submit**          | Brief shake animation, text preserved     | unchanged                        |
+| **Disabled (during error)** | `opacity-50 pointer-events-none`          | `opacity-50 pointer-events-none` |
 
 **Accessibility:** `<input type="text" aria-label="Add a new todo">`, `<button type="submit">Add</button>`. Form wraps both so Enter submits natively.
 **Keyboard:** Tab to input → type → Enter submits. Tab to Add button → Enter/Space submits.
@@ -543,13 +559,13 @@ Not a separate flow but a responsive variant of UJ-1 through UJ-4. Key adaptatio
 **Purpose:** Displays a single todo with toggle and delete actions.
 **Anatomy:** Checkbox + text + delete button in a bordered card row.
 
-| State | Checkbox | Text | Delete | Card |
-|-------|----------|------|--------|------|
-| **Active** | Empty, `border-gray-300` | `text-gray-900` | `text-gray-300` | `border-gray-200` |
-| **Active:hover** | unchanged | unchanged | unchanged | `border-gray-300 shadow-sm` |
-| **Completed** | Filled `bg-blue-600`, checkmark | `line-through text-gray-400 opacity-70` | `text-gray-300` | `border-gray-200` |
-| **Delete:hover** | — | — | `text-red-600 bg-red-50` | — |
-| **Focus-visible** | `outline-2 outline-blue-600 outline-offset-2` | — | `outline-2 outline-blue-600 outline-offset-2` | — |
+| State             | Checkbox                                      | Text                                    | Delete                                        | Card                        |
+| ----------------- | --------------------------------------------- | --------------------------------------- | --------------------------------------------- | --------------------------- |
+| **Active**        | Empty, `border-gray-300`                      | `text-gray-900`                         | `text-gray-300`                               | `border-gray-200`           |
+| **Active:hover**  | unchanged                                     | unchanged                               | unchanged                                     | `border-gray-300 shadow-sm` |
+| **Completed**     | Filled `bg-blue-600`, checkmark               | `line-through text-gray-400 opacity-70` | `text-gray-300`                               | `border-gray-200`           |
+| **Delete:hover**  | —                                             | —                                       | `text-red-600 bg-red-50`                      | —                           |
+| **Focus-visible** | `outline-2 outline-blue-600 outline-offset-2` | —                                       | `outline-2 outline-blue-600 outline-offset-2` | —                           |
 
 **Accessibility:** Checkbox: `<input type="checkbox" aria-label="Mark [task] as complete">`. Delete: `<button aria-label="Delete [task]">`. Card: `<li>` inside `<ul>`.
 **Keyboard:** Tab into card → checkbox focused → Space/Enter toggles → Tab → delete focused → Space/Enter deletes.
@@ -559,10 +575,10 @@ Not a separate flow but a responsive variant of UJ-1 through UJ-4. Key adaptatio
 **Purpose:** Renders the ordered list of TodoItem components.
 **Anatomy:** `<ul>` with `flex flex-col gap-2`. Contains TodoItem `<li>` elements.
 
-| State | Behavior |
-|-------|----------|
-| **Populated** | Renders all items in creation order |
-| **Empty** | Shows EmptyState component |
+| State                 | Behavior                                             |
+| --------------------- | ---------------------------------------------------- |
+| **Populated**         | Renders all items in creation order                  |
+| **Empty**             | Shows EmptyState component                           |
 | **Loading (initial)** | No skeleton/spinner — list appears once data arrives |
 
 **Accessibility:** `<ul role="list" aria-label="Todo list" aria-live="polite">`. Live region announces additions/removals.
@@ -580,11 +596,11 @@ Not a separate flow but a responsive variant of UJ-1 through UJ-4. Key adaptatio
 **Purpose:** Displays inline error messages for failed API operations.
 **Anatomy:** Icon + message text in a colored banner below the input.
 
-| State | Behavior |
-|-------|----------|
-| **Visible** | `bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-3` with ⚠ icon |
-| **Auto-dismiss** | Fades out after 5 seconds or on next successful action |
-| **Hidden** | Not rendered in DOM |
+| State            | Behavior                                                                        |
+| ---------------- | ------------------------------------------------------------------------------- |
+| **Visible**      | `bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-3` with ⚠ icon |
+| **Auto-dismiss** | Fades out after 5 seconds or on next successful action                          |
+| **Hidden**       | Not rendered in DOM                                                             |
 
 **Accessibility:** `role="alert"` so screen readers announce immediately. No user action required to dismiss.
 
@@ -626,27 +642,29 @@ Total: 5 components. No additional components anticipated.
 
 The app has exactly 3 button types. No ambiguity.
 
-| Level | Button | Styling | Usage |
-|-------|--------|---------|-------|
-| **Primary** | Add | `bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-5 py-3 font-semibold` | One instance — the Add button next to input |
-| **Icon (destructive)** | Delete (×) | `text-gray-300 hover:text-red-600 hover:bg-red-50 rounded p-1` | One per todo item |
-| **Toggle** | Checkbox | `w-[22px] h-[22px] border-2 border-gray-300 rounded` → `bg-blue-600 border-blue-600` | One per todo item |
+| Level                  | Button     | Styling                                                                              | Usage                                       |
+| ---------------------- | ---------- | ------------------------------------------------------------------------------------ | ------------------------------------------- |
+| **Primary**            | Add        | `bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-5 py-3 font-semibold`        | One instance — the Add button next to input |
+| **Icon (destructive)** | Delete (×) | `text-gray-300 hover:text-red-600 hover:bg-red-50 rounded p-1`                       | One per todo item                           |
+| **Toggle**             | Checkbox   | `w-[22px] h-[22px] border-2 border-gray-300 rounded` → `bg-blue-600 border-blue-600` | One per todo item                           |
 
 **Rules:**
+
 - No secondary/tertiary/ghost buttons needed — scope is too small
 - Primary button uses `cursor-pointer`; all buttons use `transition-colors duration-150`
 - Disabled state (during error): `opacity-50 cursor-not-allowed`
 
 ### Feedback Patterns
 
-| Feedback Type | Trigger | Presentation | Duration | ARIA |
-|---------------|---------|--------------|----------|------|
-| **Error** | API failure (save/toggle/delete/load) | Red banner below input: `bg-red-50 border-red-200 text-red-600` with ⚠ icon | 5s auto-dismiss or until next action | `role="alert"` |
-| **Validation rejection** | Empty/whitespace submit | Input shakes briefly (CSS animation, ~300ms). No banner. | Immediate | Input retains `aria-invalid="true"` until valid text entered |
-| **Optimistic success** | Add/complete/delete | Immediate visual change (item appears, strikethrough, fade-out) | Permanent (or reverted on error) | `aria-live="polite"` on list |
-| **Confirmed success** | Server 200 response | No additional feedback — optimistic state was already correct | — | — |
+| Feedback Type            | Trigger                               | Presentation                                                                | Duration                             | ARIA                                                         |
+| ------------------------ | ------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
+| **Error**                | API failure (save/toggle/delete/load) | Red banner below input: `bg-red-50 border-red-200 text-red-600` with ⚠ icon | 5s auto-dismiss or until next action | `role="alert"`                                               |
+| **Validation rejection** | Empty/whitespace submit               | Input shakes briefly (CSS animation, ~300ms). No banner.                    | Immediate                            | Input retains `aria-invalid="true"` until valid text entered |
+| **Optimistic success**   | Add/complete/delete                   | Immediate visual change (item appears, strikethrough, fade-out)             | Permanent (or reverted on error)     | `aria-live="polite"` on list                                 |
+| **Confirmed success**    | Server 200 response                   | No additional feedback — optimistic state was already correct               | —                                    | —                                                            |
 
 **Rules:**
+
 - No toast notifications, snackbars, or modal alerts — always inline
 - No success banners — the UI state IS the feedback
 - Error is the only state that produces a visible banner
@@ -657,18 +675,21 @@ The app has exactly 3 button types. No ambiguity.
 The app has exactly one form: the TodoInput. Pattern rules for consistency:
 
 **Validation:**
+
 - Client-side: reject empty/whitespace-only strings before API call
 - No character limit enforcement in UI (server enforces FR-3: 255 chars)
 - No real-time validation as user types — only on submit
 - Invalid submit: shake + keep text + keep focus. No error text needed (the constraint is obvious)
 
 **Input behavior:**
+
 - Placeholder: "Add a new todo..." in `text-gray-400`
 - Auto-focus on page load and after successful add
 - `autocomplete="off"` — no browser suggestions for todo text
 - `spellcheck="true"` — standard spell checking
 
 **Submit behavior:**
+
 - Enter key and Add button are identical paths
 - Input clears only on success, never on failure
 - No debounce — immediate submit on each action
@@ -677,18 +698,19 @@ The app has exactly one form: the TodoInput. Pattern rules for consistency:
 
 Consistent animation timing across all state changes:
 
-| Transition | Duration | Easing | Property |
-|------------|----------|--------|----------|
-| Checkbox fill | 200ms | ease-in-out | background-color, border-color |
-| Text strikethrough | 200ms | ease-in-out | opacity, text-decoration |
-| Item delete (fade) | 150ms | ease-out | opacity, height |
-| Card hover shadow | 150ms | ease-in-out | box-shadow, border-color |
-| Button hover color | 150ms | ease-in-out | background-color |
-| Error banner appear | 200ms | ease-out | opacity |
-| Error banner dismiss | 300ms | ease-in | opacity |
-| Input shake | 300ms | ease-in-out | transform (translateX) |
+| Transition           | Duration | Easing      | Property                       |
+| -------------------- | -------- | ----------- | ------------------------------ |
+| Checkbox fill        | 200ms    | ease-in-out | background-color, border-color |
+| Text strikethrough   | 200ms    | ease-in-out | opacity, text-decoration       |
+| Item delete (fade)   | 150ms    | ease-out    | opacity, height                |
+| Card hover shadow    | 150ms    | ease-in-out | box-shadow, border-color       |
+| Button hover color   | 150ms    | ease-in-out | background-color               |
+| Error banner appear  | 200ms    | ease-out    | opacity                        |
+| Error banner dismiss | 300ms    | ease-in     | opacity                        |
+| Input shake          | 300ms    | ease-in-out | transform (translateX)         |
 
 **Rules:**
+
 - All transitions use Tailwind's `transition-*` utilities — no custom CSS animations except input shake
 - No motion if `prefers-reduced-motion: reduce` — transitions set to 0ms
 
@@ -698,11 +720,11 @@ Consistent animation timing across all state changes:
 
 **Mobile-first, single-column layout.** The 640px max-width means the app is already "mobile" at every breakpoint — the only responsive concern is padding and touch target sizing.
 
-| Viewport | Width | Behavior |
-|----------|-------|----------|
+| Viewport         | Width       | Behavior                                                      |
+| ---------------- | ----------- | ------------------------------------------------------------- |
 | **Small mobile** | 320px–374px | Full bleed, 16px padding. Input + Add button stack vertically |
-| **Mobile** | 375px–639px | Full bleed, 16px padding. Input + Add button side-by-side |
-| **Tablet+** | 640px+ | Content centered with `max-w-[640px] mx-auto`, 24px padding |
+| **Mobile**       | 375px–639px | Full bleed, 16px padding. Input + Add button side-by-side     |
+| **Tablet+**      | 640px+      | Content centered with `max-w-[640px] mx-auto`, 24px padding   |
 
 **No layout changes beyond this.** No sidebar, no multi-column, no hamburger menu. The app is a vertical list at every size.
 
@@ -710,14 +732,15 @@ Consistent animation timing across all state changes:
 
 **Tailwind breakpoints used:**
 
-| Breakpoint | Tailwind class | Purpose |
-|------------|---------------|----------|
-| Default (0px+) | — | Mobile-first base styles |
-| `sm` (640px) | `sm:` | Center content, increase padding |
+| Breakpoint     | Tailwind class | Purpose                          |
+| -------------- | -------------- | -------------------------------- |
+| Default (0px+) | —              | Mobile-first base styles         |
+| `sm` (640px)   | `sm:`          | Center content, increase padding |
 
 **Only one breakpoint is needed.** Below 640px: full width. At 640px+: centered column. No `md`, `lg`, or `xl` breakpoints required.
 
 **Implementation:**
+
 ```
 Container: w-full sm:max-w-[640px] sm:mx-auto px-4 sm:px-6
 Input row: flex flex-col sm:flex-row gap-2
@@ -732,13 +755,16 @@ Input row: flex flex-col sm:flex-row gap-2
 ```html
 <main>
   <h1>My Todos</h1>
-  <form>                              <!-- TodoInput -->
+  <form>
+    <!-- TodoInput -->
     <input type="text" />
     <button type="submit">Add</button>
   </form>
-  <div role="alert"></div>            <!-- ErrorBanner (conditional) -->
+  <div role="alert"></div>
+  <!-- ErrorBanner (conditional) -->
   <ul role="list" aria-label="Todo list" aria-live="polite">
-    <li>                              <!-- TodoItem -->
+    <li>
+      <!-- TodoItem -->
       <input type="checkbox" />
       <span>Todo text</span>
       <button>Delete</button>
@@ -749,25 +775,26 @@ Input row: flex flex-col sm:flex-row gap-2
 
 #### Color Contrast Compliance
 
-| Pair | Foreground | Background | Ratio | Requirement |
-|------|-----------|------------|-------|-------------|
-| Primary text | `#111827` | `#FFFFFF` | 18.4:1 | AA ≥ 4.5:1 ✓ |
-| Completed text | `#9CA3AF` | `#FFFFFF` | 3.0:1 | Enhanced by strikethrough + opacity (multi-cue) |
-| Placeholder | `#9CA3AF` | `#FFFFFF` | 3.0:1 | Not required (decorative) |
-| Error text | `#DC2626` | `#FEF2F2` | 5.1:1 | AA ≥ 4.5:1 ✓ |
-| Button text | `#FFFFFF` | `#2563EB` | 4.9:1 | AA ≥ 4.5:1 ✓ |
+| Pair           | Foreground | Background | Ratio  | Requirement                                     |
+| -------------- | ---------- | ---------- | ------ | ----------------------------------------------- |
+| Primary text   | `#111827`  | `#FFFFFF`  | 18.4:1 | AA ≥ 4.5:1 ✓                                    |
+| Completed text | `#9CA3AF`  | `#FFFFFF`  | 3.0:1  | Enhanced by strikethrough + opacity (multi-cue) |
+| Placeholder    | `#9CA3AF`  | `#FFFFFF`  | 3.0:1  | Not required (decorative)                       |
+| Error text     | `#DC2626`  | `#FEF2F2`  | 5.1:1  | AA ≥ 4.5:1 ✓                                    |
+| Button text    | `#FFFFFF`  | `#2563EB`  | 4.9:1  | AA ≥ 4.5:1 ✓                                    |
 
 #### Keyboard Navigation
 
-| Key | Context | Action |
-|-----|---------|--------|
-| Tab | Page | Cycle through: input → Add → checkbox₁ → delete₁ → checkbox₂ → delete₂ → ... |
-| Enter | Input focused | Submit todo |
-| Enter/Space | Checkbox focused | Toggle completion |
-| Enter/Space | Delete focused | Delete todo |
-| Shift+Tab | Any | Reverse tab order |
+| Key         | Context          | Action                                                                       |
+| ----------- | ---------------- | ---------------------------------------------------------------------------- |
+| Tab         | Page             | Cycle through: input → Add → checkbox₁ → delete₁ → checkbox₂ → delete₂ → ... |
+| Enter       | Input focused    | Submit todo                                                                  |
+| Enter/Space | Checkbox focused | Toggle completion                                                            |
+| Enter/Space | Delete focused   | Delete todo                                                                  |
+| Shift+Tab   | Any              | Reverse tab order                                                            |
 
 **Focus management rules:**
+
 - Page load: input auto-focused
 - After add: input refocused
 - After delete: focus moves to next item's checkbox, or input if list is empty
@@ -776,21 +803,24 @@ Input row: flex flex-col sm:flex-row gap-2
 
 #### Screen Reader Support
 
-| Component | ARIA | Announcement |
-|-----------|------|-------------|
-| Input | `aria-label="Add a new todo"` | "Add a new todo, text input" |
-| Add button | Visible text "Add" | "Add, button" |
-| Checkbox | `aria-label="Mark [task] as complete"` | "Mark Buy groceries as complete, checkbox, not checked" |
-| Delete | `aria-label="Delete [task]"` | "Delete Buy groceries, button" |
-| Todo list | `aria-live="polite"` | Announces when items added/removed |
-| Error banner | `role="alert"` | Announces error immediately |
-| Empty state | Static text | Read normally when list region is focused |
+| Component    | ARIA                                   | Announcement                                            |
+| ------------ | -------------------------------------- | ------------------------------------------------------- |
+| Input        | `aria-label="Add a new todo"`          | "Add a new todo, text input"                            |
+| Add button   | Visible text "Add"                     | "Add, button"                                           |
+| Checkbox     | `aria-label="Mark [task] as complete"` | "Mark Buy groceries as complete, checkbox, not checked" |
+| Delete       | `aria-label="Delete [task]"`           | "Delete Buy groceries, button"                          |
+| Todo list    | `aria-live="polite"`                   | Announces when items added/removed                      |
+| Error banner | `role="alert"`                         | Announces error immediately                             |
+| Empty state  | Static text                            | Read normally when list region is focused               |
 
 #### Reduced Motion
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  * { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+  * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
 }
 ```
 
@@ -799,16 +829,19 @@ All transitions (checkbox fill, item fade, card hover, error banner) instantly c
 ### Testing Strategy
 
 **Automated:**
+
 - axe-core or Lighthouse accessibility audit in CI — must pass with 0 violations
 - HTML validation — semantic structure check
 
 **Manual (per NFR-10 browser matrix):**
+
 - Chrome (latest), Firefox (latest), Safari (latest), Edge (latest)
 - iOS Safari, Android Chrome
 - Keyboard-only navigation through all 6 user journeys
 - VoiceOver (macOS/iOS) + NVDA (Windows) screen reader walkthrough
 
 **Checklist per UJ:**
+
 - [ ] All actions reachable via keyboard
 - [ ] Focus visible on every interactive element
 - [ ] Screen reader announces all state changes

@@ -2,8 +2,8 @@
 stepsCompleted: []
 inputDocuments:
   - docs/requirements.md
-workflowType: 'prd'
-date: '2026-04-28'
+workflowType: "prd"
+date: "2026-04-28"
 classification:
   domain: general
   projectType: web_app

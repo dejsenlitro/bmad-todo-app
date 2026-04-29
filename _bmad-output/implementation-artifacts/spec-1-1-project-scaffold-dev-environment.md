@@ -1,11 +1,11 @@
 ---
-title: 'Story 1.1: Project Scaffold & Dev Environment'
-type: 'feature'
-created: '2026-04-29'
-status: 'in-progress'
-baseline_commit: 'NO_VCS'
+title: "Story 1.1: Project Scaffold & Dev Environment"
+type: "feature"
+created: "2026-04-29"
+status: "done"
+baseline_commit: "0b0a4e1"
 context:
-  - '_bmad-output/implementation-artifacts/epic-1-context.md'
+  - "_bmad-output/implementation-artifacts/epic-1-context.md"
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
@@ -19,6 +19,7 @@ context:
 ## Boundaries & Constraints
 
 **Always:**
+
 - TypeScript 5.x with ESM (`"type": "module"`) in both packages
 - Fastify 5.x for backend, React 19.x + Vite 8.x for frontend
 - Node.js 22 LTS as target runtime
@@ -29,10 +30,12 @@ context:
 - Co-located test structure (even though no tests written yet in this story)
 
 **Ask First:**
+
 - Adding any dependency not listed in architecture doc
 - Changing the project directory structure from architecture spec
 
 **Never:**
+
 - No ORM — raw SQL with pg only (added in Story 1.2)
 - No database connectivity in this story — health endpoint returns static response
 - No Docker — that's Story 1.2
@@ -40,12 +43,12 @@ context:
 
 ## I/O & Edge-Case Matrix
 
-| Scenario | Input / State | Expected Output / Behavior | Error Handling |
-|----------|--------------|---------------------------|----------------|
-| Health check | `GET /api/health` | `{"status":"ok"}` with HTTP 200 | N/A |
-| Unknown route | `GET /api/unknown` | Fastify default 404 JSON response | N/A |
-| Vite dev server | `npm run dev` in client/ | Serves React app on port 5173 | N/A |
-| Backend dev server | `npx tsx src/index.ts` in server/ | Fastify listens on port 3001 | N/A |
+| Scenario           | Input / State                     | Expected Output / Behavior        | Error Handling |
+| ------------------ | --------------------------------- | --------------------------------- | -------------- |
+| Health check       | `GET /api/health`                 | `{"status":"ok"}` with HTTP 200   | N/A            |
+| Unknown route      | `GET /api/unknown`                | Fastify default 404 JSON response | N/A            |
+| Vite dev server    | `npm run dev` in client/          | Serves React app on port 5173     | N/A            |
+| Backend dev server | `npx tsx src/index.ts` in server/ | Fastify listens on port 3001      | N/A            |
 
 </frozen-after-approval>
 
@@ -72,15 +75,17 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `client/` -- Scaffold with `npm create vite@latest client -- --template react-ts`, install Tailwind CSS v4, configure vite.config.ts with /api proxy, replace default CSS with Tailwind directives in index.css, set up minimal App.tsx
-- [ ] `server/package.json` + `server/tsconfig.json` -- Initialize backend package with `npm init -y`, install fastify, @fastify/cors, @fastify/sensible, pg, typescript, @types/node, @types/pg, tsx, vitest as deps/devDeps, configure tsconfig for ESM + NodeNext
-- [ ] `server/src/app.ts` + `server/src/index.ts` -- Create app factory exporting buildApp() that registers @fastify/cors and @fastify/sensible, registers health routes. index.ts imports buildApp, starts listening on PORT env var (default 3001)
-- [ ] `server/src/routes/health-routes.ts` -- Implement GET /api/health returning `{"status":"ok"}` with 200
-- [ ] `server/src/types/todo.ts` -- Create Todo interface placeholder (id, text, completed, createdAt)
-- [ ] Root files: `package.json`, `.gitignore`, `.env.example`, `README.md` -- Create root package.json with workspace scripts, comprehensive .gitignore, env template, basic README
-- [ ] `git init` + initial commit -- Initialize git repo and make initial commit
+
+- [x] `client/` -- Scaffold with `npm create vite@latest client -- --template react-ts`, install Tailwind CSS v4, configure vite.config.ts with /api proxy, replace default CSS with Tailwind directives in index.css, set up minimal App.tsx
+- [x] `server/package.json` + `server/tsconfig.json` -- Initialize backend package with `npm init -y`, install fastify, @fastify/cors, @fastify/sensible, pg, typescript, @types/node, @types/pg, tsx, vitest as deps/devDeps, configure tsconfig for ESM + NodeNext
+- [x] `server/src/app.ts` + `server/src/index.ts` -- Create app factory exporting buildApp() that registers @fastify/cors and @fastify/sensible, registers health routes. index.ts imports buildApp, starts listening on PORT env var (default 3001)
+- [x] `server/src/routes/health-routes.ts` -- Implement GET /api/health returning `{"status":"ok"}` with 200
+- [x] `server/src/types/todo.ts` -- Create Todo interface placeholder (id, text, completed, createdAt)
+- [x] Root files: `package.json`, `.gitignore`, `.env.example`, `README.md` -- Create root package.json with workspace scripts, comprehensive .gitignore, env template, basic README
+- [x] `git init` + initial commit -- Initialize git repo and make initial commit
 
 **Acceptance Criteria:**
+
 - Given the repo is freshly cloned, when `cd client && npm install && npm run dev` is run, then Vite serves the React app on port 5173
 - Given the server deps are installed, when `cd server && npx tsx src/index.ts` is run, then Fastify starts on port 3001 and `GET /api/health` returns `{"status":"ok"}` with HTTP 200
 - Given both are running, when the Vite dev server proxies /api, then requests to localhost:5173/api/health reach the backend
@@ -90,6 +95,7 @@ context:
 ## Verification
 
 **Commands:**
+
 - `cd client && npm install && npm run build` -- expected: builds without errors
 - `cd server && npm install && npx tsc --noEmit` -- expected: no type errors
 - `cd server && npx tsx src/index.ts &; sleep 2; curl -s http://localhost:3001/api/health; kill %1` -- expected: `{"status":"ok"}`

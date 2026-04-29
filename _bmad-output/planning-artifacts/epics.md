@@ -1,7 +1,7 @@
 ---
 stepsCompleted: [1, 2, 3, 4]
-status: 'complete'
-completedAt: '2026-04-29'
+status: "complete"
+completedAt: "2026-04-29"
 inputDocuments:
   - _bmad-output/planning-artifacts/prd.md
   - _bmad-output/planning-artifacts/architecture.md
@@ -106,35 +106,38 @@ UX-DR11: Implement Direction B (Bordered Cards) visual design — individual bor
 
 ### FR Coverage Map
 
-| FR | Epic | Description |
-|----|------|-------------|
-| FR-1 | Epic 2 | Create todo (1–300 chars) |
-| FR-2 | Epic 2 | Todo data model (text, completed, created_at) |
-| FR-3 | Epic 2 | View all todos on load |
-| FR-4 | Epic 2 | Mark todo complete (visual distinction) |
-| FR-5 | Epic 2 | Delete todo (permanent removal) |
-| FR-6 | Epic 2 | RESTful CRUD API |
-| FR-7 | Epic 2 | Data persistence across sessions |
-| FR-8 | Epic 2 | JSON error responses (400/404/500) |
-| FR-9 | Epic 2 | Loading state UI |
-| FR-10 | Epic 2 | Empty state UI |
-| FR-11 | Epic 2 | Error state UI with retry |
-| FR-12 | Epic 1 | Health endpoint |
+| FR    | Epic   | Description                                   |
+| ----- | ------ | --------------------------------------------- |
+| FR-1  | Epic 2 | Create todo (1–300 chars)                     |
+| FR-2  | Epic 2 | Todo data model (text, completed, created_at) |
+| FR-3  | Epic 2 | View all todos on load                        |
+| FR-4  | Epic 2 | Mark todo complete (visual distinction)       |
+| FR-5  | Epic 2 | Delete todo (permanent removal)               |
+| FR-6  | Epic 2 | RESTful CRUD API                              |
+| FR-7  | Epic 2 | Data persistence across sessions              |
+| FR-8  | Epic 2 | JSON error responses (400/404/500)            |
+| FR-9  | Epic 2 | Loading state UI                              |
+| FR-10 | Epic 2 | Empty state UI                                |
+| FR-11 | Epic 2 | Error state UI with retry                     |
+| FR-12 | Epic 1 | Health endpoint                               |
 
 ## Epic List
 
 ### Epic 1: Project Foundation & Infrastructure
+
 Users (developers) can clone the repo, run `docker-compose up`, and have a running application with an empty, healthy system. This is the "zero to running" epic — it delivers the starter scaffolds, Docker containers, database schema, health endpoint, and dev workflow.
 **FRs covered:** FR-12
 **NFRs addressed:** NFR-5, NFR-6, NFR-9, NFR-12, NFR-13, NFR-14, NFR-17
 
 ### Epic 2: Core Todo Management
+
 Users can create, view, complete, and delete todos with full backend persistence and a polished, accessible UI. This is the complete product experience — API endpoints, data layer, all 5 frontend components, optimistic updates, loading/empty/error states, responsive layout, and keyboard/screen reader accessibility.
 **FRs covered:** FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-8, FR-9, FR-10, FR-11
 **NFRs addressed:** NFR-1, NFR-2, NFR-3, NFR-4, NFR-7, NFR-8, NFR-10, NFR-11
 **UX-DRs addressed:** UX-DR1 through UX-DR11
 
 ### Epic 3: Quality Assurance & E2E Testing
+
 The application has verified quality — 70%+ code coverage via Vitest unit/integration tests and 5 passing Playwright E2E tests covering all core user journeys (create, complete, delete, empty state, error handling).
 **FRs covered:** (verification of FR-1 through FR-11)
 **NFRs addressed:** NFR-15, NFR-16

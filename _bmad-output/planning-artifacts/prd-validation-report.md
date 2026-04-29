@@ -1,6 +1,6 @@
 ---
-validationTarget: '_bmad-output/planning-artifacts/prd.md'
-validationDate: '2026-04-28'
+validationTarget: "_bmad-output/planning-artifacts/prd.md"
+validationDate: "2026-04-28"
 inputDocuments:
   - _bmad-output/planning-artifacts/prd.md
 validationStepsCompleted:
@@ -17,13 +17,13 @@ validationStepsCompleted:
   - step-v-11-holistic-quality
   - step-v-12-completeness
 validationStatus: COMPLETE
-holisticQualityRating: '5/5 - Excellent'
+holisticQualityRating: "5/5 - Excellent"
 overallStatus: Pass
 ---
 
 # PRD Validation Report
 
-**PRD Being Validated:** _bmad-output/planning-artifacts/prd.md
+**PRD Being Validated:** \_bmad-output/planning-artifacts/prd.md
 **Validation Date:** 2026-04-28
 **Validation Run:** 2 (post-fix re-validation)
 

@@ -1,0 +1,11 @@
+services:
+  db:
+    environment:
+      POSTGRES_DB: todoapp_test
+    ports:
+      - "5433:5432"
+
+  server:
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/todoapp_test
+      NODE_ENV: test

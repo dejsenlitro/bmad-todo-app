@@ -4,13 +4,13 @@ inputDocuments:
   - _bmad-output/planning-artifacts/prd.md
   - _bmad-output/planning-artifacts/ux-design-specification.md
   - docs/requirements.md
-workflowType: 'architecture'
-project_name: 'todo-app'
-user_name: 'Arin'
-date: '2026-04-29'
+workflowType: "architecture"
+project_name: "todo-app"
+user_name: "Arin"
+date: "2026-04-29"
 lastStep: 8
-status: 'complete'
-completedAt: '2026-04-29'
+status: "complete"
+completedAt: "2026-04-29"
 ---
 
 # Architecture Decision Document
@@ -23,24 +23,24 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 
 **Functional Requirements (12 FRs):**
 
-| Area | FRs | Architectural Implication |
-|------|-----|---------------------------|
-| Todo CRUD | FR-1 to FR-5 | Single resource REST API, one database table |
-| RESTful API | FR-6 to FR-8, FR-12 | Standard CRUD endpoints + health check. JSON error format defined. |
-| UI States | FR-9 to FR-11 | Frontend state management: loading, empty, error. Optimistic updates per UX spec. |
+| Area        | FRs                 | Architectural Implication                                                         |
+| ----------- | ------------------- | --------------------------------------------------------------------------------- |
+| Todo CRUD   | FR-1 to FR-5        | Single resource REST API, one database table                                      |
+| RESTful API | FR-6 to FR-8, FR-12 | Standard CRUD endpoints + health check. JSON error format defined.                |
+| UI States   | FR-9 to FR-11       | Frontend state management: loading, empty, error. Optimistic updates per UX spec. |
 
 This is a **single-entity CRUD app** — one resource type (`Todo`), four operations (create, read, update-status, delete), one API consumer (the SPA).
 
 **Non-Functional Requirements (17 NFRs) — Architectural Drivers:**
 
-| NFR | Constraint | Architecture Impact |
-|-----|-----------|---------------------|
-| NFR-1/2/3 | 200ms UI, 500ms API p95, 2s page load | Simple stack, no heavy frameworks. Optimistic UI. |
-| NFR-6 | Frontend + backend independently deployable | Separate containers, no SSR monolith |
-| NFR-9 | Layered design (routes/logic/data) | 3-layer backend: routes → service → repository |
-| NFR-12/13/14 | Docker Compose, multi-stage, non-root, profiles | Multi-container orchestration with dev/test profiles |
-| NFR-15/16 | 70% coverage, 5+ Playwright E2E tests | Test infrastructure baked into project structure |
-| NFR-17 | XSS/injection free | Input sanitization, parameterized queries, CSP headers |
+| NFR          | Constraint                                      | Architecture Impact                                    |
+| ------------ | ----------------------------------------------- | ------------------------------------------------------ |
+| NFR-1/2/3    | 200ms UI, 500ms API p95, 2s page load           | Simple stack, no heavy frameworks. Optimistic UI.      |
+| NFR-6        | Frontend + backend independently deployable     | Separate containers, no SSR monolith                   |
+| NFR-9        | Layered design (routes/logic/data)              | 3-layer backend: routes → service → repository         |
+| NFR-12/13/14 | Docker Compose, multi-stage, non-root, profiles | Multi-container orchestration with dev/test profiles   |
+| NFR-15/16    | 70% coverage, 5+ Playwright E2E tests           | Test infrastructure baked into project structure       |
+| NFR-17       | XSS/injection free                              | Input sanitization, parameterized queries, CSP headers |
 
 ### Scale & Complexity
 
@@ -62,14 +62,14 @@ This is a **single-entity CRUD app** — one resource type (`Todo`), four operat
 
 ### Cross-Cutting Concerns
 
-| Concern | Spans | Notes |
-|---------|-------|-------|
-| **Error handling** | Frontend + Backend | Consistent JSON error format, user-facing messages without internals |
-| **Input validation** | Frontend + Backend | Client: empty/whitespace rejection. Server: 1–255 char enforcement, sanitization |
-| **Security** | Frontend + Backend | XSS prevention (output encoding), SQL injection prevention (parameterized queries), CSP headers |
-| **Testing** | All layers | Unit + integration + E2E across frontend, backend, and Docker |
-| **Health monitoring** | Backend + Docker | `/health` endpoint consumed by Docker health check |
-| **Environment config** | All containers | Dev/test profiles via env vars and compose profiles |
+| Concern                | Spans              | Notes                                                                                           |
+| ---------------------- | ------------------ | ----------------------------------------------------------------------------------------------- |
+| **Error handling**     | Frontend + Backend | Consistent JSON error format, user-facing messages without internals                            |
+| **Input validation**   | Frontend + Backend | Client: empty/whitespace rejection. Server: 1–255 char enforcement, sanitization                |
+| **Security**           | Frontend + Backend | XSS prevention (output encoding), SQL injection prevention (parameterized queries), CSP headers |
+| **Testing**            | All layers         | Unit + integration + E2E across frontend, backend, and Docker                                   |
+| **Health monitoring**  | Backend + Docker   | `/health` endpoint consumed by Docker health check                                              |
+| **Environment config** | All containers     | Dev/test profiles via env vars and compose profiles                                             |
 
 ## Starter Template Evaluation
 
@@ -81,13 +81,13 @@ Full-stack web application (SPA + REST API + PostgreSQL) based on project requir
 
 ### Starter Options Considered
 
-| Option | Description | Verdict |
-|--------|------------|--------|
-| **create-vite (react-ts)** | Official Vite scaffold for React + TypeScript | Best for frontend — minimal, fast, no opinions beyond build tooling |
-| **fastify-cli generate** | Fastify's official scaffold | Generates JS by default, opinionated plugin structure — more setup than needed |
-| **Manual Fastify + TypeScript** | Hand-built from `npm init` | Better fit — full control over layered architecture (routes/service/repository) |
-| **T3 Stack / create-t3-app** | Next.js + tRPC + Prisma | Wrong paradigm — SSR monolith, not separate SPA + API containers |
-| **Turborepo** | Monorepo tooling | Overkill for 2 packages in a simple todo app |
+| Option                          | Description                                   | Verdict                                                                         |
+| ------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------- |
+| **create-vite (react-ts)**      | Official Vite scaffold for React + TypeScript | Best for frontend — minimal, fast, no opinions beyond build tooling             |
+| **fastify-cli generate**        | Fastify's official scaffold                   | Generates JS by default, opinionated plugin structure — more setup than needed  |
+| **Manual Fastify + TypeScript** | Hand-built from `npm init`                    | Better fit — full control over layered architecture (routes/service/repository) |
+| **T3 Stack / create-t3-app**    | Next.js + tRPC + Prisma                       | Wrong paradigm — SSR monolith, not separate SPA + API containers                |
+| **Turborepo**                   | Monorepo tooling                              | Overkill for 2 packages in a simple todo app                                    |
 
 ### Selected Approach
 
@@ -112,17 +112,20 @@ npm i -D typescript @types/node @types/pg tsx vitest
 ### Architectural Decisions Provided by Starters
 
 **Language & Runtime:**
+
 - TypeScript 5.x across both packages
 - Node.js 22.x (LTS) runtime for backend
 - ESM modules (`"type": "module"`)
 
 **Frontend (Vite + React):**
+
 - Vite 8.x dev server with HMR
 - React 19.x with functional components
 - Tailwind CSS v4 (added post-scaffold)
 - Build output: static files served by Nginx or Vite preview
 
 **Backend (Fastify):**
+
 - Fastify 5.x with built-in JSON Schema validation
 - `@fastify/cors` for cross-origin SPA requests
 - `pg` (node-postgres) — raw SQL with parameterized queries (no ORM)
@@ -130,10 +133,12 @@ npm i -D typescript @types/node @types/pg tsx vitest
 - `tsx` for development, `tsc` for production build
 
 **Database:**
+
 - PostgreSQL 16 via Docker container
 - Single `todos` table, parameterized queries for injection prevention
 
 **Testing:**
+
 - Vitest for unit + integration tests (both frontend and backend)
 - Playwright for E2E tests
 - c8/istanbul coverage reporting
@@ -170,6 +175,7 @@ todo-app/
 All critical decisions are made — tech stack, data model, API contract, deployment strategy.
 
 **Deferred Decisions (Post-MVP):**
+
 - Authentication method (JWT vs. session) — when auth is added
 - Caching strategy — not needed for single-user, single-table
 - Rate limiting — not needed without public API exposure
@@ -177,13 +183,13 @@ All critical decisions are made — tech stack, data model, API contract, deploy
 
 ### Data Architecture
 
-| Decision | Choice | Rationale |
-|----------|--------|----------|
-| Database | PostgreSQL 16 | Robust, widely supported, Docker-ready |
-| Driver | `pg` (node-postgres) | Raw SQL, no ORM overhead, parameterized queries for security |
-| Primary key | UUID v4 (`gen_random_uuid()`) | No enumeration attack surface, future-proof for multi-user |
-| Migrations | SQL init script (`init.sql`) | Single table — no migration framework needed |
-| Connection pooling | `pg.Pool` (built-in) | Default pool size sufficient for single-user app |
+| Decision           | Choice                        | Rationale                                                    |
+| ------------------ | ----------------------------- | ------------------------------------------------------------ |
+| Database           | PostgreSQL 16                 | Robust, widely supported, Docker-ready                       |
+| Driver             | `pg` (node-postgres)          | Raw SQL, no ORM overhead, parameterized queries for security |
+| Primary key        | UUID v4 (`gen_random_uuid()`) | No enumeration attack surface, future-proof for multi-user   |
+| Migrations         | SQL init script (`init.sql`)  | Single table — no migration framework needed                 |
+| Connection pooling | `pg.Pool` (built-in)          | Default pool size sufficient for single-user app             |
 
 **Schema:**
 
@@ -198,62 +204,64 @@ CREATE TABLE IF NOT EXISTS todos (
 
 ### Authentication & Security
 
-| Decision | Choice | Rationale |
-|----------|--------|----------|
-| Authentication | None (MVP) | Out of scope per PRD |
-| Input sanitization | Server-side text trimming + length validation | Prevent XSS at API boundary |
-| SQL injection | Parameterized queries only | `pg` supports `$1, $2` placeholders natively |
-| XSS prevention | React's default escaping + CSP headers | React escapes by default; CSP as defense-in-depth |
-| CORS | `@fastify/cors` with origin whitelist | Allow only the frontend origin |
+| Decision           | Choice                                        | Rationale                                         |
+| ------------------ | --------------------------------------------- | ------------------------------------------------- |
+| Authentication     | None (MVP)                                    | Out of scope per PRD                              |
+| Input sanitization | Server-side text trimming + length validation | Prevent XSS at API boundary                       |
+| SQL injection      | Parameterized queries only                    | `pg` supports `$1, $2` placeholders natively      |
+| XSS prevention     | React's default escaping + CSP headers        | React escapes by default; CSP as defense-in-depth |
+| CORS               | `@fastify/cors` with origin whitelist         | Allow only the frontend origin                    |
 
 ### API & Communication Patterns
 
-| Decision | Choice | Rationale |
-|----------|--------|----------|
-| API style | REST with `/api` prefix | Simple CRUD, no complex relationships |
-| Validation | Fastify JSON Schema | Built-in, zero-dependency, generates type-safe handlers |
-| Error format | `{ error: string, statusCode: number }` | Per FR-8, human-readable, no stack traces |
-| Serialization | Fastify response schemas | Auto-strips unexpected fields from responses |
-| API docs | None (MVP) | 5 endpoints, documented in architecture doc |
+| Decision      | Choice                                  | Rationale                                               |
+| ------------- | --------------------------------------- | ------------------------------------------------------- |
+| API style     | REST with `/api` prefix                 | Simple CRUD, no complex relationships                   |
+| Validation    | Fastify JSON Schema                     | Built-in, zero-dependency, generates type-safe handlers |
+| Error format  | `{ error: string, statusCode: number }` | Per FR-8, human-readable, no stack traces               |
+| Serialization | Fastify response schemas                | Auto-strips unexpected fields from responses            |
+| API docs      | None (MVP)                              | 5 endpoints, documented in architecture doc             |
 
 **API Contract:**
 
-| Method | Path | Request Body | Response | Status |
-|--------|------|-------------|----------|--------|
-| `GET` | `/api/todos` | — | `Todo[]` | 200 |
-| `POST` | `/api/todos` | `{ text: string }` | `Todo` | 201 |
-| `PATCH` | `/api/todos/:id` | `{ completed: boolean }` | `Todo` | 200 |
-| `DELETE` | `/api/todos/:id` | — | — | 204 |
-| `GET` | `/api/health` | — | `{ status: "ok" }` | 200 |
+| Method   | Path             | Request Body             | Response           | Status |
+| -------- | ---------------- | ------------------------ | ------------------ | ------ |
+| `GET`    | `/api/todos`     | —                        | `Todo[]`           | 200    |
+| `POST`   | `/api/todos`     | `{ text: string }`       | `Todo`             | 201    |
+| `PATCH`  | `/api/todos/:id` | `{ completed: boolean }` | `Todo`             | 200    |
+| `DELETE` | `/api/todos/:id` | —                        | —                  | 204    |
+| `GET`    | `/api/health`    | —                        | `{ status: "ok" }` | 200    |
 
 ### Frontend Architecture
 
-| Decision | Choice | Rationale |
-|----------|--------|----------|
+| Decision         | Choice                              | Rationale                                                |
+| ---------------- | ----------------------------------- | -------------------------------------------------------- |
 | State management | `useState` + custom `useTodos` hook | Single array of todos — no external state library needed |
-| HTTP client | Native `fetch` API | No axios dependency; modern browsers all support it |
-| Routing | None | Single page, no navigation — no router needed |
-| CSS approach | Tailwind CSS v4, utility classes | Per UX design spec, no component library |
-| Build output | Static files | Served by Nginx in production container |
+| HTTP client      | Native `fetch` API                  | No axios dependency; modern browsers all support it      |
+| Routing          | None                                | Single page, no navigation — no router needed            |
+| CSS approach     | Tailwind CSS v4, utility classes    | Per UX design spec, no component library                 |
+| Build output     | Static files                        | Served by Nginx in production container                  |
 
 ### Infrastructure & Deployment
 
-| Decision | Choice | Rationale |
-|----------|--------|----------|
-| Container orchestration | Docker Compose | Per NFR-12, zero-config `docker-compose up` |
-| Frontend serving | Nginx (production), Vite dev server (dev) | Static file serving + API reverse proxy |
-| Backend runtime | Node.js 22 LTS | Long-term support, ESM native |
-| Dev mode | `tsx --watch` (backend), Vite HMR (frontend) | Fast feedback loops |
-| Logging | Pino (via Fastify built-in) | JSON structured logs, zero config |
-| Health checks | `GET /api/health` + Docker HEALTHCHECK | Per FR-12, NFR-13 |
-| Environment config | `.env` files + Docker Compose env | Per NFR-14, dev/test profiles |
+| Decision                | Choice                                       | Rationale                                   |
+| ----------------------- | -------------------------------------------- | ------------------------------------------- |
+| Container orchestration | Docker Compose                               | Per NFR-12, zero-config `docker-compose up` |
+| Frontend serving        | Nginx (production), Vite dev server (dev)    | Static file serving + API reverse proxy     |
+| Backend runtime         | Node.js 22 LTS                               | Long-term support, ESM native               |
+| Dev mode                | `tsx --watch` (backend), Vite HMR (frontend) | Fast feedback loops                         |
+| Logging                 | Pino (via Fastify built-in)                  | JSON structured logs, zero config           |
+| Health checks           | `GET /api/health` + Docker HEALTHCHECK       | Per FR-12, NFR-13                           |
+| Environment config      | `.env` files + Docker Compose env            | Per NFR-14, dev/test profiles               |
 
 ### Decision Impact Analysis
 
 **Implementation sequence:**
+
 1. Database schema (init.sql) → 2. Backend API (routes/services/repositories) → 3. Frontend SPA → 4. Docker Compose → 5. E2E tests
 
 **Cross-component dependencies:**
+
 - Frontend depends on API contract (table above)
 - Docker Compose depends on both Dockerfiles
 - E2E tests depend on full stack running
@@ -265,32 +273,32 @@ CREATE TABLE IF NOT EXISTS todos (
 
 **Database:**
 
-| Element | Convention | Example |
-|---------|-----------|--------|
-| Tables | lowercase plural | `todos` |
-| Columns | snake_case | `created_at` |
-| Primary key | `id` | `id UUID` |
+| Element     | Convention       | Example      |
+| ----------- | ---------------- | ------------ |
+| Tables      | lowercase plural | `todos`      |
+| Columns     | snake_case       | `created_at` |
+| Primary key | `id`             | `id UUID`    |
 
 **API:**
 
-| Element | Convention | Example |
-|---------|-----------|--------|
-| Endpoints | lowercase plural, `/api` prefix | `/api/todos` |
-| Route params | `:paramName` (camelCase) | `/api/todos/:id` |
-| JSON fields | camelCase | `{ createdAt, completed }` |
+| Element      | Convention                      | Example                    |
+| ------------ | ------------------------------- | -------------------------- |
+| Endpoints    | lowercase plural, `/api` prefix | `/api/todos`               |
+| Route params | `:paramName` (camelCase)        | `/api/todos/:id`           |
+| JSON fields  | camelCase                       | `{ createdAt, completed }` |
 
 **Note:** Database uses `snake_case` (`created_at`), API responses use `camelCase` (`createdAt`). The repository layer handles the mapping.
 
 **TypeScript code:**
 
-| Element | Convention | Example |
-|---------|-----------|--------|
-| Files | kebab-case | `todo-repository.ts` |
-| React components | PascalCase file + export | `TodoItem.tsx` → `export function TodoItem()` |
-| Functions | camelCase | `createTodo()`, `getTodos()` |
-| Interfaces/types | PascalCase, no `I` prefix | `Todo`, `CreateTodoRequest` |
-| Constants | UPPER_SNAKE_CASE | `MAX_TODO_LENGTH` |
-| Env vars | UPPER_SNAKE_CASE | `DATABASE_URL`, `PORT` |
+| Element          | Convention                | Example                                       |
+| ---------------- | ------------------------- | --------------------------------------------- |
+| Files            | kebab-case                | `todo-repository.ts`                          |
+| React components | PascalCase file + export  | `TodoItem.tsx` → `export function TodoItem()` |
+| Functions        | camelCase                 | `createTodo()`, `getTodos()`                  |
+| Interfaces/types | PascalCase, no `I` prefix | `Todo`, `CreateTodoRequest`                   |
+| Constants        | UPPER_SNAKE_CASE          | `MAX_TODO_LENGTH`                             |
+| Env vars         | UPPER_SNAKE_CASE          | `DATABASE_URL`, `PORT`                        |
 
 ### Structure Patterns
 
@@ -526,29 +534,29 @@ Database (pg)   → PostgreSQL connection pool
 
 **Container Boundaries (Docker):**
 
-| Container | Port | Exposes | Depends On |
-|-----------|------|---------|------------|
-| `client` (Nginx) | 80 | Static files + `/api` proxy | `server` |
-| `server` (Node) | 3001 | REST API | `db` |
-| `db` (PostgreSQL) | 5432 | Database | — |
+| Container         | Port | Exposes                     | Depends On |
+| ----------------- | ---- | --------------------------- | ---------- |
+| `client` (Nginx)  | 80   | Static files + `/api` proxy | `server`   |
+| `server` (Node)   | 3001 | REST API                    | `db`       |
+| `db` (PostgreSQL) | 5432 | Database                    | —          |
 
 ### Requirements to Structure Mapping
 
-| Requirement | Component | File(s) |
-|-------------|-----------|----------|
-| FR-1 (Create todo) | Frontend + Backend | `TodoInput.tsx`, `todo-routes.ts`, `todo-service.ts`, `todo-repository.ts` |
-| FR-3 (View todos) | Frontend + Backend | `TodoList.tsx`, `TodoItem.tsx`, `todo-routes.ts` (GET) |
-| FR-4 (Complete todo) | Frontend + Backend | `TodoItem.tsx`, `todo-routes.ts` (PATCH) |
-| FR-5 (Delete todo) | Frontend + Backend | `TodoItem.tsx`, `todo-routes.ts` (DELETE) |
-| FR-8 (Error responses) | Backend | `todo-routes.ts`, Fastify error handler in `app.ts` |
-| FR-10 (Empty state) | Frontend | `EmptyState.tsx` |
-| FR-11 (Error state) | Frontend | `ErrorBanner.tsx` |
-| FR-12 (Health check) | Backend + Docker | `health-routes.ts`, `Dockerfile` HEALTHCHECK |
-| NFR-9 (Layered arch) | Backend | `routes/` → `services/` → `repositories/` |
-| NFR-12 (Docker) | Infrastructure | `docker-compose.yml`, `Dockerfile` × 2 |
-| NFR-15 (70% coverage) | All | `.test.ts` files co-located with source |
-| NFR-16 (5 E2E tests) | E2E | `e2e/tests/*.spec.ts` (5 files) |
-| NFR-17 (Security) | Backend | Parameterized queries, JSON Schema validation, CSP |
+| Requirement            | Component          | File(s)                                                                    |
+| ---------------------- | ------------------ | -------------------------------------------------------------------------- |
+| FR-1 (Create todo)     | Frontend + Backend | `TodoInput.tsx`, `todo-routes.ts`, `todo-service.ts`, `todo-repository.ts` |
+| FR-3 (View todos)      | Frontend + Backend | `TodoList.tsx`, `TodoItem.tsx`, `todo-routes.ts` (GET)                     |
+| FR-4 (Complete todo)   | Frontend + Backend | `TodoItem.tsx`, `todo-routes.ts` (PATCH)                                   |
+| FR-5 (Delete todo)     | Frontend + Backend | `TodoItem.tsx`, `todo-routes.ts` (DELETE)                                  |
+| FR-8 (Error responses) | Backend            | `todo-routes.ts`, Fastify error handler in `app.ts`                        |
+| FR-10 (Empty state)    | Frontend           | `EmptyState.tsx`                                                           |
+| FR-11 (Error state)    | Frontend           | `ErrorBanner.tsx`                                                          |
+| FR-12 (Health check)   | Backend + Docker   | `health-routes.ts`, `Dockerfile` HEALTHCHECK                               |
+| NFR-9 (Layered arch)   | Backend            | `routes/` → `services/` → `repositories/`                                  |
+| NFR-12 (Docker)        | Infrastructure     | `docker-compose.yml`, `Dockerfile` × 2                                     |
+| NFR-15 (70% coverage)  | All                | `.test.ts` files co-located with source                                    |
+| NFR-16 (5 E2E tests)   | E2E                | `e2e/tests/*.spec.ts` (5 files)                                            |
+| NFR-17 (Security)      | Backend            | Parameterized queries, JSON Schema validation, CSP                         |
 
 ### Data Flow
 
@@ -607,56 +615,56 @@ User action → React component → useTodos hook → todo-api.ts (fetch)
 
 **Functional Requirements — 12/12 covered:**
 
-| FR | Covered By | Status |
-|----|-----------|--------|
-| FR-1 (Create) | `TodoInput.tsx` → `POST /api/todos` → `todo-repository.ts` | ✅ |
-| FR-2 (Data model) | `init.sql` schema, `todo.ts` types | ✅ |
-| FR-3 (View list) | `TodoList.tsx` → `GET /api/todos` | ✅ |
-| FR-4 (Complete) | `TodoItem.tsx` → `PATCH /api/todos/:id` | ✅ |
-| FR-5 (Delete) | `TodoItem.tsx` → `DELETE /api/todos/:id` | ✅ |
-| FR-6 (REST API) | `todo-routes.ts` with 5 endpoints | ✅ |
-| FR-7 (Persistence) | PostgreSQL + `todo-repository.ts` | ✅ |
-| FR-8 (Error format) | Fastify error handler → `{ error, statusCode }` | ✅ |
-| FR-9 (Loading state) | `useTodos.ts` loading state | ✅ |
-| FR-10 (Empty state) | `EmptyState.tsx` | ✅ |
-| FR-11 (Error state) | `ErrorBanner.tsx` | ✅ |
-| FR-12 (Health) | `health-routes.ts` + Docker HEALTHCHECK | ✅ |
+| FR                   | Covered By                                                 | Status |
+| -------------------- | ---------------------------------------------------------- | ------ |
+| FR-1 (Create)        | `TodoInput.tsx` → `POST /api/todos` → `todo-repository.ts` | ✅     |
+| FR-2 (Data model)    | `init.sql` schema, `todo.ts` types                         | ✅     |
+| FR-3 (View list)     | `TodoList.tsx` → `GET /api/todos`                          | ✅     |
+| FR-4 (Complete)      | `TodoItem.tsx` → `PATCH /api/todos/:id`                    | ✅     |
+| FR-5 (Delete)        | `TodoItem.tsx` → `DELETE /api/todos/:id`                   | ✅     |
+| FR-6 (REST API)      | `todo-routes.ts` with 5 endpoints                          | ✅     |
+| FR-7 (Persistence)   | PostgreSQL + `todo-repository.ts`                          | ✅     |
+| FR-8 (Error format)  | Fastify error handler → `{ error, statusCode }`            | ✅     |
+| FR-9 (Loading state) | `useTodos.ts` loading state                                | ✅     |
+| FR-10 (Empty state)  | `EmptyState.tsx`                                           | ✅     |
+| FR-11 (Error state)  | `ErrorBanner.tsx`                                          | ✅     |
+| FR-12 (Health)       | `health-routes.ts` + Docker HEALTHCHECK                    | ✅     |
 
 **Non-Functional Requirements — 17/17 covered:**
 
-| NFR | Architectural Support | Status |
-|-----|----------------------|--------|
-| NFR-1 (200ms UI) | Optimistic updates in `useTodos.ts` | ✅ |
-| NFR-2 (500ms API p95) | Simple queries, connection pooling | ✅ |
-| NFR-3 (2s page load) | Vite build optimization, no heavy deps | ✅ |
-| NFR-4 (320–1920px) | Tailwind responsive, max-w-[640px] | ✅ |
-| NFR-5 (Maintainability) | Clear 3-layer structure, co-located tests | ✅ |
-| NFR-6 (Independent deploy) | Separate Dockerfiles, separate packages | ✅ |
-| NFR-7 (Client errors) | `ErrorBanner.tsx`, no stack traces | ✅ |
-| NFR-8 (Server errors) | Fastify error handler, JSON format | ✅ |
-| NFR-9 (Layered design) | routes → services → repositories | ✅ |
-| NFR-10 (Browser support) | Vite targets Baseline Widely Available | ✅ |
-| NFR-11 (WCAG AA) | UX spec: ARIA, focus, keyboard, contrast | ✅ |
-| NFR-12 (Docker Compose) | `docker-compose.yml` | ✅ |
-| NFR-13 (Multi-stage) | Multi-stage Dockerfiles, non-root, health | ✅ |
-| NFR-14 (Dev/test profiles) | `docker-compose.dev.yml`, `.test.yml` | ✅ |
-| NFR-15 (70% coverage) | Vitest + co-located tests | ✅ |
-| NFR-16 (5 E2E tests) | 5 Playwright spec files | ✅ |
-| NFR-17 (XSS/injection) | Parameterized SQL, React escaping, CSP | ✅ |
+| NFR                        | Architectural Support                     | Status |
+| -------------------------- | ----------------------------------------- | ------ |
+| NFR-1 (200ms UI)           | Optimistic updates in `useTodos.ts`       | ✅     |
+| NFR-2 (500ms API p95)      | Simple queries, connection pooling        | ✅     |
+| NFR-3 (2s page load)       | Vite build optimization, no heavy deps    | ✅     |
+| NFR-4 (320–1920px)         | Tailwind responsive, max-w-[640px]        | ✅     |
+| NFR-5 (Maintainability)    | Clear 3-layer structure, co-located tests | ✅     |
+| NFR-6 (Independent deploy) | Separate Dockerfiles, separate packages   | ✅     |
+| NFR-7 (Client errors)      | `ErrorBanner.tsx`, no stack traces        | ✅     |
+| NFR-8 (Server errors)      | Fastify error handler, JSON format        | ✅     |
+| NFR-9 (Layered design)     | routes → services → repositories          | ✅     |
+| NFR-10 (Browser support)   | Vite targets Baseline Widely Available    | ✅     |
+| NFR-11 (WCAG AA)           | UX spec: ARIA, focus, keyboard, contrast  | ✅     |
+| NFR-12 (Docker Compose)    | `docker-compose.yml`                      | ✅     |
+| NFR-13 (Multi-stage)       | Multi-stage Dockerfiles, non-root, health | ✅     |
+| NFR-14 (Dev/test profiles) | `docker-compose.dev.yml`, `.test.yml`     | ✅     |
+| NFR-15 (70% coverage)      | Vitest + co-located tests                 | ✅     |
+| NFR-16 (5 E2E tests)       | 5 Playwright spec files                   | ✅     |
+| NFR-17 (XSS/injection)     | Parameterized SQL, React escaping, CSP    | ✅     |
 
 ### Implementation Readiness
 
-| Check | Status |
-|-------|--------|
-| All tech versions specified | ✅ |
-| API contract defined (methods, paths, bodies, statuses) | ✅ |
-| Database schema defined | ✅ |
-| Project tree with every file listed | ✅ |
-| Naming conventions for DB, API, code | ✅ |
-| Layer boundaries documented with enforcement rules | ✅ |
-| Error handling pattern per layer | ✅ |
-| Anti-patterns listed | ✅ |
-| Dev/test/prod workflow documented | ✅ |
+| Check                                                   | Status |
+| ------------------------------------------------------- | ------ |
+| All tech versions specified                             | ✅     |
+| API contract defined (methods, paths, bodies, statuses) | ✅     |
+| Database schema defined                                 | ✅     |
+| Project tree with every file listed                     | ✅     |
+| Naming conventions for DB, API, code                    | ✅     |
+| Layer boundaries documented with enforcement rules      | ✅     |
+| Error handling pattern per layer                        | ✅     |
+| Anti-patterns listed                                    | ✅     |
+| Dev/test/prod workflow documented                       | ✅     |
 
 ### Gap Analysis
 
